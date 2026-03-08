@@ -1,0 +1,425 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace DungeonWindows
+{
+    public partial class Form1 : Form
+    {
+
+        /* TODO:
+            - Kommentare
+            - erneuten Export reparieren
+            - Exception handling verbessern (funktioniert gar nicht)
+        */
+
+
+        private static Random random = new Random();
+
+        private static bool dungeonFertig = false;
+        private static int objectChance = 5;
+        private static int dungeonHight = 0;
+        private static int dungeonWidth = 0;
+        char[,] dungeon = new char[0, 0];
+
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void startBtn_Click(object sender, EventArgs e)
+        {
+            mainScreen();
+            hideButtons();
+        }
+
+        private void dokumentationBtn_Click(object sender, EventArgs e)
+        {
+            hideButtons();
+            beendenBtn.Visible = true;
+            startBtn.Visible = true;
+
+
+            DokumentationInBox(); // Ausgabe in RichTextBox
+            dokumentationBox.Visible = true;
+        }
+
+        private void beendenBtn_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void hideButtons()
+        {
+            DokumentationBtn.Visible = false;
+            beendenBtn.Visible = false;
+            startBtn.Visible = false;
+
+        }
+
+        private void mainScreen()
+        {
+            dokumentationBox.Visible = false;
+            hightLabel.Visible = true;
+            widthLabel.Visible = true;
+            objectLabel.Visible = true;
+
+            hightInput.Visible = true;
+            widthInput.Visible = true;
+            objectInput.Visible = true;
+
+            generateBtn.Visible = true;
+            exportBtn.Visible = true;
+            dungeonAusgabe.Visible = true;
+        }
+
+        private void generateBtn_Click(object sender, EventArgs e)
+        {
+            dungeonHight = EingabeZahl(hightInput.Text, 10, 40);
+            dungeonWidth = EingabeZahl(widthInput.Text, 10, 40);
+
+            if ((dungeonHight <= 40 && dungeonHight > 10) || (dungeonWidth <= 40 && dungeonWidth > 10))
+            {
+                dungeon = GenerateDungeon(dungeonHight, dungeonWidth);
+                FarbigeAusgabe(dungeon);
+                dungeonFertig = true;
+                dungeonNameLabel.Visible = true;
+                dungeonName.Visible = true;
+            }
+        }
+
+        private void exportBtn_Click(object sender, EventArgs e)
+        {
+            dungeonName.Clear();
+            // Speichern des Dungeons
+            if (dungeonFertig)
+            {
+                char[] ungültig = Path.GetInvalidFileNameChars();
+                string dateiName = dungeonName.Text;
+
+                while (dateiName.IndexOfAny(ungültig) >= 0 || dateiName.Length > 200)
+                {
+                    dateiName = dungeonName.Text;
+                }
+
+                // Pfad vorbereiten
+                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                string pfad = Path.Combine(desktopPath, dateiName + ".txt");
+
+                string gespeichertesDungeon = "";
+
+                // Datei existiert bereits -> nachfragen
+                if (File.Exists(pfad))
+                {
+                    if (MessageBox.Show("Willst du den Dungeon überschreiben?", "Bestätigung", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        gespeichertesDungeon = ArrayToText(dungeon);
+                        File.WriteAllText(pfad, gespeichertesDungeon);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wurde nicht überschrieben!");
+                    }
+                }
+                else
+                {
+                    // Datei existiert nicht -> normal speichern
+                    gespeichertesDungeon = ArrayToText(dungeon);
+                    File.WriteAllText(pfad, gespeichertesDungeon);
+                    MessageBox.Show("Dungeon wurde gespeichert!");
+                }
+            }
+        }
+
+        void DokuInfo(char symbol, Color farbe, string text)
+        {
+            dokumentationBox.SelectionColor = farbe;
+            dokumentationBox.AppendText(symbol + " ");
+            dokumentationBox.SelectionColor = Color.Black;
+            dokumentationBox.AppendText("= " + text + "\n");
+        }
+
+        private void DokumentationInBox()
+        {
+            dokumentationBox.Clear(); // RichTextBox leeren
+
+            dokumentationBox.AppendText("----------------- DUNGEON DOKUMENTATION -----------------\n\n");
+
+            dokumentationBox.AppendText("In diesem Dungeon können folgende Elemente erscheinen:\n\n");
+
+            DokuInfo('#', Color.White, "Wand – blockiert den Weg.");
+            DokuInfo('.', Color.DarkGray, "Weg – begehbares Feld.");
+            DokuInfo('S', Color.Green, "Startpunkt – hier startet es.");
+            DokuInfo('E', Color.Red, "Ausgang – Ziel des Dungeons.");
+            DokuInfo('T', Color.Yellow, "Truhe – enthält Belohnungen.");
+            DokuInfo('F', Color.DarkRed, "Falle – verursacht Schaden oder Nachteile.");
+
+            dokumentationBox.AppendText("\nHinweis:\n");
+            dokumentationBox.SelectionColor = Color.Cyan;
+            dokumentationBox.AppendText("Räume und Wege werden zufällig generiert. Truhen und Fallen haben eine Chance von 5% pro Wegfeld.\n\n");
+            dokumentationBox.SelectionColor = Color.Magenta;
+            dokumentationBox.AppendText("Viel Spaß beim Erkunden des Dungeons!\n\n");
+            dokumentationBox.SelectionColor = Color.Black;
+            dokumentationBox.AppendText("---------------------------------------------------------\n");
+        }
+
+        // Dungeon Generator: Räume, Wege, Start, Ende, Objekte
+        public static char[,] GenerateDungeon(int height, int width)
+        {
+            // Größe anpassen (ungerade Werte um doppelte wänden entgegenzuwirken)
+            if (height % 2 == 0) height++;
+            if (width % 2 == 0) width++;
+
+            // Dungeon mit Wänden füllen
+            char[,] dungeon = new char[height, width];
+            for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
+                    dungeon[y, x] = '#';
+
+            // Räume erzeugen
+            int anzahl = (width * height) / 50;
+            int raumAnzahl = Math.Min(20, anzahl);
+            raumAnzahl += random.Next(-2, 3);
+            raumAnzahl = Math.Max(3, raumAnzahl);
+
+            for (int r = 0; r < raumAnzahl; r++)
+            {
+                int raumBreite = random.Next(2, 4);
+                int raumHöhe = random.Next(2, 4);
+                int rx = random.Next(1, width - raumBreite - 1);
+                int ry = random.Next(1, height - raumHöhe - 1);
+
+                for (int y = ry; y < ry + raumHöhe; y++)
+                    for (int x = rx; x < rx + raumBreite; x++)
+                        dungeon[y, x] = '.';
+            }
+
+            // Labyrinth erzeugen
+            LabyrinthWege(dungeon, 1, 1);
+
+            // Startpunkt setzen
+            int sx, sy;
+            do
+            {
+                sx = random.Next(1, width - 1);
+                sy = random.Next(1, height - 1);
+            }
+            while (dungeon[sy, sx] != '.');
+            dungeon[sy, sx] = 'S';
+
+            // Endpunkt setzen (mit Mindestabstand)
+            int ex, ey, abstand;
+            do
+            {
+                ex = random.Next(1, width - 1);
+                ey = random.Next(1, height - 1);
+                abstand = Math.Abs(ex - sx) + Math.Abs(ey - sy);
+            }
+            while (dungeon[ey, ex] != '.' || abstand < 8);
+            dungeon[ey, ex] = 'E';
+
+            // Truhen und Fallen verteilen
+            for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
+                    if (dungeon[y, x] == '.' && random.Next(100) < objectChance)
+                        dungeon[y, x] = random.Next(2) == 0 ? 'T' : 'F';
+
+            return dungeon;
+        }
+
+        // Rekursiver Maze Generator (Depth-First-Search algorythmus)
+        private static void LabyrinthWege(char[,] dungeon, int y, int x)
+        {
+            dungeon[y, x] = '.';
+
+            int[][] dirs =
+            {
+            new int[]{ 0, 2 },
+            new int[]{ 0,-2 },
+            new int[]{ 2, 0 },
+            new int[]{-2, 0 }
+        };
+
+            // Richtungen mischen
+            for (int i = 0; i < dirs.Length; i++)
+            {
+                int r = random.Next(dirs.Length);
+                int[] temp = dirs[i];
+                dirs[i] = dirs[r];
+                dirs[r] = temp;
+            }
+
+            // Punkte verbinden
+            for (int i = 0; i < dirs.Length; i++)
+            {
+                int[] d = dirs[i];
+                int nx = x + d[1];
+                int ny = y + d[0];
+
+                if (ny > 0 && ny < dungeon.GetLength(0) - 1 &&
+                    nx > 0 && nx < dungeon.GetLength(1) - 1 &&
+                    dungeon[ny, nx] == '#')
+                {
+                    dungeon[y + d[0] / 2, x + d[1] / 2] = '.';
+                    LabyrinthWege(dungeon, ny, nx);
+                }
+            }
+        }
+
+        public void FarbigeAusgabe(char[,] dungeon)
+        {
+            dungeonAusgabe.Clear();
+
+            for (int y = 0; y < dungeon.GetLength(0); y++)
+            {
+                for (int x = 0; x < dungeon.GetLength(1); x++)
+                {
+                    char c = dungeon[y, x];
+
+                    switch (c)
+                    {
+                        case '.': dungeonAusgabe.SelectionColor = Color.DarkGray; break;
+                        case '#': dungeonAusgabe.SelectionColor = Color.White; break;
+                        case 'S': dungeonAusgabe.SelectionColor = Color.Green; break;
+                        case 'E': dungeonAusgabe.SelectionColor = Color.Red; break;
+                        case 'T': dungeonAusgabe.SelectionColor = Color.Yellow; break;
+                        case 'F': dungeonAusgabe.SelectionColor = Color.DarkRed; break;
+                        default: dungeonAusgabe.SelectionColor = Color.Black; break;
+                    }
+                    dungeonAusgabe.AppendText(c.ToString());
+                }
+
+                dungeonAusgabe.AppendText("\n");
+            }
+        }
+
+        private static void DokuInfo(char symbol, ConsoleColor farbe, string text)
+        {
+            Console.ForegroundColor = farbe;
+            Console.Write(symbol + " ");
+            Console.ResetColor();
+            Console.WriteLine("= " + text);
+        }
+
+        // Dokumentation des Dungeons (Erklärung aller Symbole)
+        public static void Dokumentation()
+        {
+            Console.Clear();
+            Console.WriteLine("--------------- DUNGEON DOKUMENTATION ---------------\n");
+            Console.WriteLine("In diesem Dungeon können folgende Elemente erscheinen:\n");
+
+            DokuInfo('#', ConsoleColor.White, "Wand – blockiert den Weg.");
+            DokuInfo('.', ConsoleColor.DarkGray, "Weg – begehbares Feld.");
+            DokuInfo('S', ConsoleColor.Green, "Startpunkt – hier startet es.");
+            DokuInfo('E', ConsoleColor.Red, "Ausgang – Ziel des Dungeons.");
+            DokuInfo('T', ConsoleColor.Yellow, "Truhe – enthält Belohnungen.");
+            DokuInfo('F', ConsoleColor.DarkRed, "Falle – verursacht Schaden oder Nachteile.");
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Hinweis:");
+            Console.ResetColor();
+            Console.WriteLine("Räume und Wege werden zufällig generiert. Truhen und Fallen haben eine Chance von 5% pro Wegfeld.\n");
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("Viel Spaß beim Erkunden des Dungeons!");
+            Console.ResetColor();
+            Console.WriteLine("\n-----------------------------------------------------\n");
+
+            Console.WriteLine("1. Spiel Starten\n2. Hauptmenü");
+        }
+
+        // Liest eine gültige Zahl ein
+        private static int EingabeZahl(string text, int min, int max)
+        {
+            string eingabe = text;
+            int zahl;
+
+            while (!int.TryParse(eingabe, out zahl) || zahl < min || zahl > max)
+            {
+                eingabe = text;
+            }
+
+            return zahl;
+        }
+
+        private static string ArrayToText(char[,] dungeon)
+        {
+            string dungeonText = "";
+
+            for (int y = 0; y < dungeon.GetLength(0); y++)
+            {
+                for (int x = 0; x < dungeon.GetLength(1); x++)
+                    dungeonText += dungeon[y, x];
+
+                dungeonText += "\n";
+            }
+
+            return dungeonText;
+        }
+
+        private void hightLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void widthLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hightInput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void widthInput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void objectLabel_click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void objectInput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dungeonAusgabe_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dungeonName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dungeonNameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dokumentationBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
