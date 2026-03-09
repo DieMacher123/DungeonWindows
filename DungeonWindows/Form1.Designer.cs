@@ -31,9 +31,9 @@
             this.DokumentationBtn = new System.Windows.Forms.Button();
             this.startBtn = new System.Windows.Forms.Button();
             this.beendenBtn = new System.Windows.Forms.Button();
-            this.hightInput = new System.Windows.Forms.TextBox();
+            this.heightInput = new System.Windows.Forms.TextBox();
             this.widthInput = new System.Windows.Forms.TextBox();
-            this.hightLabel = new System.Windows.Forms.Label();
+            this.heightLabel = new System.Windows.Forms.Label();
             this.widthLabel = new System.Windows.Forms.Label();
             this.objectLabel = new System.Windows.Forms.Label();
             this.objectInput = new System.Windows.Forms.TextBox();
@@ -43,13 +43,16 @@
             this.dungeonName = new System.Windows.Forms.TextBox();
             this.dungeonNameLabel = new System.Windows.Forms.Label();
             this.dokumentationBox = new System.Windows.Forms.RichTextBox();
+            this.pathBox = new System.Windows.Forms.TextBox();
+            this.pathLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // DokumentationBtn
             // 
-            this.DokumentationBtn.Location = new System.Drawing.Point(487, 236);
+            this.DokumentationBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DokumentationBtn.Location = new System.Drawing.Point(474, 236);
             this.DokumentationBtn.Name = "DokumentationBtn";
-            this.DokumentationBtn.Size = new System.Drawing.Size(91, 23);
+            this.DokumentationBtn.Size = new System.Drawing.Size(116, 37);
             this.DokumentationBtn.TabIndex = 0;
             this.DokumentationBtn.Text = "Dokumentation";
             this.DokumentationBtn.UseVisualStyleBackColor = true;
@@ -57,9 +60,10 @@
             // 
             // startBtn
             // 
-            this.startBtn.Location = new System.Drawing.Point(487, 209);
+            this.startBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startBtn.Location = new System.Drawing.Point(474, 191);
             this.startBtn.Name = "startBtn";
-            this.startBtn.Size = new System.Drawing.Size(91, 23);
+            this.startBtn.Size = new System.Drawing.Size(116, 39);
             this.startBtn.TabIndex = 1;
             this.startBtn.Text = "Start";
             this.startBtn.UseVisualStyleBackColor = true;
@@ -67,22 +71,23 @@
             // 
             // beendenBtn
             // 
-            this.beendenBtn.Location = new System.Drawing.Point(487, 265);
+            this.beendenBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.beendenBtn.Location = new System.Drawing.Point(474, 279);
             this.beendenBtn.Name = "beendenBtn";
-            this.beendenBtn.Size = new System.Drawing.Size(91, 23);
+            this.beendenBtn.Size = new System.Drawing.Size(116, 38);
             this.beendenBtn.TabIndex = 2;
             this.beendenBtn.Text = "Beenden";
             this.beendenBtn.UseVisualStyleBackColor = true;
             this.beendenBtn.Click += new System.EventHandler(this.beendenBtn_Click);
             // 
-            // hightInput
+            // heightInput
             // 
-            this.hightInput.Location = new System.Drawing.Point(70, 36);
-            this.hightInput.Name = "hightInput";
-            this.hightInput.Size = new System.Drawing.Size(100, 20);
-            this.hightInput.TabIndex = 3;
-            this.hightInput.Visible = false;
-            this.hightInput.TextChanged += new System.EventHandler(this.hightInput_TextChanged);
+            this.heightInput.Location = new System.Drawing.Point(70, 36);
+            this.heightInput.Name = "heightInput";
+            this.heightInput.Size = new System.Drawing.Size(100, 20);
+            this.heightInput.TabIndex = 3;
+            this.heightInput.Visible = false;
+            this.heightInput.TextChanged += new System.EventHandler(this.heightInput_TextChanged);
             // 
             // widthInput
             // 
@@ -93,23 +98,25 @@
             this.widthInput.Visible = false;
             this.widthInput.TextChanged += new System.EventHandler(this.widthInput_TextChanged);
             // 
-            // hightLabel
+            // heightLabel
             // 
-            this.hightLabel.AutoSize = true;
-            this.hightLabel.Location = new System.Drawing.Point(17, 39);
-            this.hightLabel.Name = "hightLabel";
-            this.hightLabel.Size = new System.Drawing.Size(36, 13);
-            this.hightLabel.TabIndex = 5;
-            this.hightLabel.Text = "Höhe:";
-            this.hightLabel.Visible = false;
-            this.hightLabel.Click += new System.EventHandler(this.hightLabel_Click);
+            this.heightLabel.AutoSize = true;
+            this.heightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.heightLabel.Location = new System.Drawing.Point(21, 37);
+            this.heightLabel.Name = "heightLabel";
+            this.heightLabel.Size = new System.Drawing.Size(43, 16);
+            this.heightLabel.TabIndex = 5;
+            this.heightLabel.Text = "Höhe:";
+            this.heightLabel.Visible = false;
+            this.heightLabel.Click += new System.EventHandler(this.heightLabel_Click);
             // 
             // widthLabel
             // 
             this.widthLabel.AutoSize = true;
-            this.widthLabel.Location = new System.Drawing.Point(17, 65);
+            this.widthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.widthLabel.Location = new System.Drawing.Point(19, 63);
             this.widthLabel.Name = "widthLabel";
-            this.widthLabel.Size = new System.Drawing.Size(37, 13);
+            this.widthLabel.Size = new System.Drawing.Size(45, 16);
             this.widthLabel.TabIndex = 6;
             this.widthLabel.Text = "Breite:";
             this.widthLabel.Visible = false;
@@ -118,9 +125,10 @@
             // objectLabel
             // 
             this.objectLabel.AutoSize = true;
-            this.objectLabel.Location = new System.Drawing.Point(17, 91);
+            this.objectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.objectLabel.Location = new System.Drawing.Point(7, 88);
             this.objectLabel.Name = "objectLabel";
-            this.objectLabel.Size = new System.Drawing.Size(47, 13);
+            this.objectLabel.Size = new System.Drawing.Size(57, 16);
             this.objectLabel.TabIndex = 7;
             this.objectLabel.Text = "Objekte:";
             this.objectLabel.Visible = false;
@@ -137,17 +145,21 @@
             // 
             // dungeonAusgabe
             // 
+            this.dungeonAusgabe.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dungeonAusgabe.BackColor = System.Drawing.Color.DimGray;
             this.dungeonAusgabe.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dungeonAusgabe.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dungeonAusgabe.HideSelection = false;
-            this.dungeonAusgabe.Location = new System.Drawing.Point(251, 23);
+            this.dungeonAusgabe.Location = new System.Drawing.Point(292, 12);
             this.dungeonAusgabe.Name = "dungeonAusgabe";
             this.dungeonAusgabe.ReadOnly = true;
-            this.dungeonAusgabe.Size = new System.Drawing.Size(785, 637);
+            this.dungeonAusgabe.Size = new System.Drawing.Size(815, 664);
             this.dungeonAusgabe.TabIndex = 9;
             this.dungeonAusgabe.Text = "";
             this.dungeonAusgabe.Visible = false;
+            this.dungeonAusgabe.WordWrap = false;
             this.dungeonAusgabe.TextChanged += new System.EventHandler(this.dungeonAusgabe_TextChanged);
             // 
             // generateBtn
@@ -200,7 +212,7 @@
             this.dokumentationBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dokumentationBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dokumentationBox.HideSelection = false;
-            this.dokumentationBox.Location = new System.Drawing.Point(12, 12);
+            this.dokumentationBox.Location = new System.Drawing.Point(674, 1);
             this.dokumentationBox.Name = "dokumentationBox";
             this.dokumentationBox.ReadOnly = true;
             this.dokumentationBox.Size = new System.Drawing.Size(445, 419);
@@ -209,12 +221,35 @@
             this.dokumentationBox.Visible = false;
             this.dokumentationBox.TextChanged += new System.EventHandler(this.dokumentationBox_TextChanged);
             // 
+            // pathBox
+            // 
+            this.pathBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.pathBox.Location = new System.Drawing.Point(47, 656);
+            this.pathBox.Name = "pathBox";
+            this.pathBox.Size = new System.Drawing.Size(155, 20);
+            this.pathBox.TabIndex = 15;
+            this.pathBox.Visible = false;
+            this.pathBox.TextChanged += new System.EventHandler(this.pathBox_TextChanged);
+            // 
+            // pathLabel
+            // 
+            this.pathLabel.AutoSize = true;
+            this.pathLabel.Location = new System.Drawing.Point(44, 639);
+            this.pathLabel.Name = "pathLabel";
+            this.pathLabel.Size = new System.Drawing.Size(32, 13);
+            this.pathLabel.TabIndex = 16;
+            this.pathLabel.Text = "Path:";
+            this.pathLabel.Visible = false;
+            this.pathLabel.Click += new System.EventHandler(this.pathLabel_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(1064, 688);
+            this.ClientSize = new System.Drawing.Size(1119, 688);
+            this.Controls.Add(this.pathLabel);
+            this.Controls.Add(this.pathBox);
             this.Controls.Add(this.dokumentationBox);
             this.Controls.Add(this.dungeonNameLabel);
             this.Controls.Add(this.dungeonName);
@@ -224,9 +259,9 @@
             this.Controls.Add(this.objectInput);
             this.Controls.Add(this.objectLabel);
             this.Controls.Add(this.widthLabel);
-            this.Controls.Add(this.hightLabel);
+            this.Controls.Add(this.heightLabel);
             this.Controls.Add(this.widthInput);
-            this.Controls.Add(this.hightInput);
+            this.Controls.Add(this.heightInput);
             this.Controls.Add(this.beendenBtn);
             this.Controls.Add(this.startBtn);
             this.Controls.Add(this.DokumentationBtn);
@@ -243,9 +278,9 @@
         private System.Windows.Forms.Button DokumentationBtn;
         private System.Windows.Forms.Button startBtn;
         private System.Windows.Forms.Button beendenBtn;
-        private System.Windows.Forms.TextBox hightInput;
+        private System.Windows.Forms.TextBox heightInput;
         private System.Windows.Forms.TextBox widthInput;
-        private System.Windows.Forms.Label hightLabel;
+        private System.Windows.Forms.Label heightLabel;
         private System.Windows.Forms.Label widthLabel;
         private System.Windows.Forms.Label objectLabel;
         private System.Windows.Forms.TextBox objectInput;
@@ -255,6 +290,8 @@
         private System.Windows.Forms.TextBox dungeonName;
         private System.Windows.Forms.Label dungeonNameLabel;
         private System.Windows.Forms.RichTextBox dokumentationBox;
+        private System.Windows.Forms.TextBox pathBox;
+        private System.Windows.Forms.Label pathLabel;
     }
 }
 

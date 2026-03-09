@@ -18,12 +18,11 @@ namespace DungeonWindows
             - Kommentare
         */
 
-
         private static Random random = new Random();
 
         private static bool dungeonFertig = false;
         private static int objectChance = 5;
-        private static int dungeonHight = 0;
+        private static int dungeonHeight = 0;
         private static int dungeonWidth = 0;
         char[,] dungeon = new char[0, 0];
 
@@ -50,7 +49,6 @@ namespace DungeonWindows
             beendenBtn.Visible = true;
             startBtn.Visible = true;
 
-
             DokumentationInBox(); // Ausgabe in RichTextBox
             dokumentationBox.Visible = true;
         }
@@ -65,23 +63,25 @@ namespace DungeonWindows
             DokumentationBtn.Visible = false;
             beendenBtn.Visible = false;
             startBtn.Visible = false;
-
         }
 
         private void mainScreen()
         {
             dokumentationBox.Visible = false;
-            hightLabel.Visible = true;
+            heightLabel.Visible = true;
             widthLabel.Visible = true;
             objectLabel.Visible = true;
 
-            hightInput.Visible = true;
+            heightInput.Visible = true;
             widthInput.Visible = true;
             objectInput.Visible = true;
 
             generateBtn.Visible = true;
             exportBtn.Visible = true;
             dungeonAusgabe.Visible = true;
+
+            pathBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
         }
 
         private void generateBtn_Click(object sender, EventArgs e)
@@ -90,8 +90,7 @@ namespace DungeonWindows
             int width;
             int objChance;
 
-
-            bool heightOk = int.TryParse(hightInput.Text, out height);
+            bool heightOk = int.TryParse(heightInput.Text, out height);
             bool widthOk = int.TryParse(widthInput.Text, out width);
             bool objChanceOk = int.TryParse(objectInput.Text, out objChance);
 
@@ -101,16 +100,19 @@ namespace DungeonWindows
                 return;
             }
 
-            dungeonHight = height;
+            dungeonHeight = height;
             dungeonWidth = width;
             objectChance = objChance;
 
-
-            dungeon = GenerateDungeon(dungeonHight, dungeonWidth);
+            dungeon = GenerateDungeon(dungeonHeight, dungeonWidth);
             FarbigeAusgabe(dungeon);
             dungeonFertig = true;
+
             dungeonNameLabel.Visible = true;
             dungeonName.Visible = true;
+
+            pathBox.Visible = true;
+            pathLabel.Visible = true;
         }
 
         private void exportBtn_Click(object sender, EventArgs e)
@@ -132,22 +134,32 @@ namespace DungeonWindows
 
             if (dungeonFertig)
             {
-                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string pfad = Path.Combine(desktopPath, dateiName + ".txt");
-
-                string gespeichertesDungeon = ArrayToText(dungeon);
-
-                if (File.Exists(pfad))
+                string finalPath = pathBox.Text;
+                if (Directory.Exists(finalPath))
                 {
-                    if (MessageBox.Show("Willst du den Dungeon überschreiben?", "Bestätigung", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    string pfad = Path.Combine(finalPath, dateiName + ".txt");
+
+                    string gespeichertesDungeon = ArrayToText(dungeon);
+
+                    if (File.Exists(pfad))
+                    {
+                        if (MessageBox.Show("Willst du den Dungeon überschreiben?", "Bestätigung", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            File.WriteAllText(pfad, gespeichertesDungeon);
+                            dungeonFertig = false;
+                        }
+                    }
+                    else
                     {
                         File.WriteAllText(pfad, gespeichertesDungeon);
+                        MessageBox.Show("Dungeon wurde gespeichert!");
+                        dungeonFertig = false;
                     }
                 }
                 else
                 {
-                    File.WriteAllText(pfad, gespeichertesDungeon);
-                    MessageBox.Show("Dungeon wurde gespeichert!");
+                    MessageBox.Show("Pfad existiert nicht!");
+                    return;
                 }
             }
         }
@@ -164,7 +176,7 @@ namespace DungeonWindows
         {
             dokumentationBox.Clear(); // RichTextBox leeren
 
-            dokumentationBox.AppendText("----------------- DUNGEON DOKUMENTATION -----------------\n\n");
+            dokumentationBox.AppendText("                  DUNGEON DOKUMENTATION                  \n\n");
 
             dokumentationBox.AppendText("In diesem Dungeon können folgende Elemente erscheinen:\n\n");
 
@@ -181,7 +193,6 @@ namespace DungeonWindows
             dokumentationBox.SelectionColor = Color.Magenta;
             dokumentationBox.AppendText("Viel Spaß beim Erkunden des Dungeons!\n\n");
             dokumentationBox.SelectionColor = Color.Black;
-            dokumentationBox.AppendText("---------------------------------------------------------\n");
         }
 
         // Dungeon Generator: Räume, Wege, Start, Ende, Objekte
@@ -350,20 +361,6 @@ namespace DungeonWindows
             Console.WriteLine("1. Spiel Starten\n2. Hauptmenü");
         }
 
-        // Liest eine gültige Zahl ein
-        private static int EingabeZahl(string text, int min, int max)
-        {
-            int zahl;
-
-            if (!int.TryParse(text, out zahl) || zahl < min || zahl > max)
-            {
-                MessageBox.Show("Fehler");
-                return -1;
-            }
-
-            return zahl;
-        }
-
         private static string ArrayToText(char[,] dungeon)
         {
             string dungeonText = "";
@@ -379,7 +376,7 @@ namespace DungeonWindows
             return dungeonText;
         }
 
-        private void hightLabel_Click(object sender, EventArgs e)
+        private void heightLabel_Click(object sender, EventArgs e)
         {
 
         }
@@ -389,7 +386,7 @@ namespace DungeonWindows
 
         }
 
-        private void hightInput_TextChanged(object sender, EventArgs e)
+        private void heightInput_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -425,6 +422,16 @@ namespace DungeonWindows
         }
 
         private void dokumentationBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pathBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pathLabel_Click(object sender, EventArgs e)
         {
 
         }
