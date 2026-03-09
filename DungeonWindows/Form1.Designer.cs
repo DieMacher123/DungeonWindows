@@ -200,7 +200,7 @@
             this.dokumentationBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dokumentationBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dokumentationBox.HideSelection = false;
-            this.dokumentationBox.Location = new System.Drawing.Point(12, 23);
+            this.dokumentationBox.Location = new System.Drawing.Point(12, 12);
             this.dokumentationBox.Name = "dokumentationBox";
             this.dokumentationBox.ReadOnly = true;
             this.dokumentationBox.Size = new System.Drawing.Size(445, 419);

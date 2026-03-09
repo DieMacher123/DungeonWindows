@@ -16,8 +16,6 @@ namespace DungeonWindows
 
         /* TODO:
             - Kommentare
-            - erneuten Export reparieren
-            - Exception handling verbessern (funktioniert gar nicht)
         */
 
 
@@ -88,57 +86,66 @@ namespace DungeonWindows
 
         private void generateBtn_Click(object sender, EventArgs e)
         {
-            dungeonHight = EingabeZahl(hightInput.Text, 10, 40);
-            dungeonWidth = EingabeZahl(widthInput.Text, 10, 40);
+            int height;
+            int width;
+            int objChance;
 
-            if ((dungeonHight <= 40 && dungeonHight > 10) || (dungeonWidth <= 40 && dungeonWidth > 10))
+
+            bool heightOk = int.TryParse(hightInput.Text, out height);
+            bool widthOk = int.TryParse(widthInput.Text, out width);
+            bool objChanceOk = int.TryParse(objectInput.Text, out objChance);
+
+            if (!objChanceOk || !heightOk || !widthOk || height < 10 || height > 40 || width < 10 || width > 40 || objChance == 0 || objChance > 100)
             {
-                dungeon = GenerateDungeon(dungeonHight, dungeonWidth);
-                FarbigeAusgabe(dungeon);
-                dungeonFertig = true;
-                dungeonNameLabel.Visible = true;
-                dungeonName.Visible = true;
+                MessageBox.Show("Fehlerhafte eingabe");
+                return;
             }
+
+            dungeonHight = height;
+            dungeonWidth = width;
+            objectChance = objChance;
+
+
+            dungeon = GenerateDungeon(dungeonHight, dungeonWidth);
+            FarbigeAusgabe(dungeon);
+            dungeonFertig = true;
+            dungeonNameLabel.Visible = true;
+            dungeonName.Visible = true;
         }
 
         private void exportBtn_Click(object sender, EventArgs e)
         {
-            dungeonName.Clear();
-            // Speichern des Dungeons
+            string dateiName = dungeonName.Text;
+
+            // Ungültige Zeichen prüfen
+            if (dateiName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            {
+                MessageBox.Show("Der Name enthält ungültige Zeichen!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(dateiName))
+            {
+                MessageBox.Show("Bitte einen Dateinamen eingeben!");
+                return;
+            }
+
             if (dungeonFertig)
             {
-                char[] ungültig = Path.GetInvalidFileNameChars();
-                string dateiName = dungeonName.Text;
-
-                while (dateiName.IndexOfAny(ungültig) >= 0 || dateiName.Length > 200)
-                {
-                    dateiName = dungeonName.Text;
-                }
-
-                // Pfad vorbereiten
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
                 string pfad = Path.Combine(desktopPath, dateiName + ".txt");
 
-                string gespeichertesDungeon = "";
+                string gespeichertesDungeon = ArrayToText(dungeon);
 
-                // Datei existiert bereits -> nachfragen
                 if (File.Exists(pfad))
                 {
                     if (MessageBox.Show("Willst du den Dungeon überschreiben?", "Bestätigung", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        gespeichertesDungeon = ArrayToText(dungeon);
                         File.WriteAllText(pfad, gespeichertesDungeon);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Wurde nicht überschrieben!");
                     }
                 }
                 else
                 {
-                    // Datei existiert nicht -> normal speichern
-                    gespeichertesDungeon = ArrayToText(dungeon);
                     File.WriteAllText(pfad, gespeichertesDungeon);
                     MessageBox.Show("Dungeon wurde gespeichert!");
                 }
@@ -346,12 +353,12 @@ namespace DungeonWindows
         // Liest eine gültige Zahl ein
         private static int EingabeZahl(string text, int min, int max)
         {
-            string eingabe = text;
             int zahl;
 
-            while (!int.TryParse(eingabe, out zahl) || zahl < min || zahl > max)
+            if (!int.TryParse(text, out zahl) || zahl < min || zahl > max)
             {
-                eingabe = text;
+                MessageBox.Show("Fehler");
+                return -1;
             }
 
             return zahl;
