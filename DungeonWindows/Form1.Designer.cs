@@ -1,4 +1,4 @@
-﻿namespace DungeonWindows
+namespace DungeonWindows
 {
     partial class Form1
     {
@@ -45,6 +45,8 @@
             this.dokumentationBox = new System.Windows.Forms.RichTextBox();
             this.pathBox = new System.Windows.Forms.TextBox();
             this.pathLabel = new System.Windows.Forms.Label();
+            this.truhenLabel = new System.Windows.Forms.Label();
+            this.fallenLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // DokumentationBtn
@@ -104,7 +106,7 @@
             this.heightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.heightLabel.Location = new System.Drawing.Point(21, 37);
             this.heightLabel.Name = "heightLabel";
-            this.heightLabel.Size = new System.Drawing.Size(43, 16);
+            this.heightLabel.Size = new System.Drawing.Size(44, 16);
             this.heightLabel.TabIndex = 5;
             this.heightLabel.Text = "Höhe:";
             this.heightLabel.Visible = false;
@@ -116,7 +118,7 @@
             this.widthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.widthLabel.Location = new System.Drawing.Point(19, 63);
             this.widthLabel.Name = "widthLabel";
-            this.widthLabel.Size = new System.Drawing.Size(45, 16);
+            this.widthLabel.Size = new System.Drawing.Size(46, 16);
             this.widthLabel.TabIndex = 6;
             this.widthLabel.Text = "Breite:";
             this.widthLabel.Visible = false;
@@ -128,7 +130,7 @@
             this.objectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.objectLabel.Location = new System.Drawing.Point(7, 88);
             this.objectLabel.Name = "objectLabel";
-            this.objectLabel.Size = new System.Drawing.Size(57, 16);
+            this.objectLabel.Size = new System.Drawing.Size(58, 16);
             this.objectLabel.TabIndex = 7;
             this.objectLabel.Text = "Objekte:";
             this.objectLabel.Visible = false;
@@ -242,12 +244,38 @@
             this.pathLabel.Visible = false;
             this.pathLabel.Click += new System.EventHandler(this.pathLabel_Click);
             // 
+            // truhenLabel
+            // 
+            this.truhenLabel.AutoSize = true;
+            this.truhenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.truhenLabel.Location = new System.Drawing.Point(12, 169);
+            this.truhenLabel.Name = "truhenLabel";
+            this.truhenLabel.Size = new System.Drawing.Size(53, 16);
+            this.truhenLabel.TabIndex = 17;
+            this.truhenLabel.Text = "Truhen:";
+            this.truhenLabel.Visible = false;
+            this.truhenLabel.Click += new System.EventHandler(this.truhenLabel_Click);
+            // 
+            // fallenLabel
+            // 
+            this.fallenLabel.AutoSize = true;
+            this.fallenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fallenLabel.Location = new System.Drawing.Point(17, 191);
+            this.fallenLabel.Name = "fallenLabel";
+            this.fallenLabel.Size = new System.Drawing.Size(48, 16);
+            this.fallenLabel.TabIndex = 18;
+            this.fallenLabel.Text = "Fallen:";
+            this.fallenLabel.Visible = false;
+            this.fallenLabel.Click += new System.EventHandler(this.fallenLabel_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(1119, 688);
+            this.Controls.Add(this.fallenLabel);
+            this.Controls.Add(this.truhenLabel);
             this.Controls.Add(this.pathLabel);
             this.Controls.Add(this.pathBox);
             this.Controls.Add(this.dokumentationBox);
@@ -266,7 +294,7 @@
             this.Controls.Add(this.startBtn);
             this.Controls.Add(this.DokumentationBtn);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Truhen:";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -292,6 +320,8 @@
         private System.Windows.Forms.RichTextBox dokumentationBox;
         private System.Windows.Forms.TextBox pathBox;
         private System.Windows.Forms.Label pathLabel;
+        private System.Windows.Forms.Label truhenLabel;
+        private System.Windows.Forms.Label fallenLabel;
     }
 }
 
