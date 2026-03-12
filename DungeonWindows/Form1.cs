@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +24,8 @@ namespace DungeonWindows
         private static int objectChance = 5;
         private static int dungeonHeight = 0;
         private static int dungeonWidth = 0;
+        private static int fallenCounter = 0;
+        private static int truhenCounter = 0;
         char[,] dungeon = new char[0, 0];
 
 
@@ -80,6 +82,7 @@ namespace DungeonWindows
             exportBtn.Visible = true;
             dungeonAusgabe.Visible = true;
 
+
             pathBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
         }
@@ -94,7 +97,7 @@ namespace DungeonWindows
             bool widthOk = int.TryParse(widthInput.Text, out width);
             bool objChanceOk = int.TryParse(objectInput.Text, out objChance);
 
-            if (!objChanceOk || !heightOk || !widthOk || height < 10 || height > 40 || width < 10 || width > 40 || objChance == 0 || objChance > 100)
+            if (!objChanceOk || !heightOk || !widthOk || height < 10 || height > 400 || width < 10 || width > 400 || objChance == 0 || objChance > 100)
             {
                 MessageBox.Show("Fehlerhafte eingabe");
                 return;
@@ -107,6 +110,13 @@ namespace DungeonWindows
             dungeon = GenerateDungeon(dungeonHeight, dungeonWidth);
             FarbigeAusgabe(dungeon);
             dungeonFertig = true;
+
+
+            truhenLabel.Visible = true;
+            fallenLabel.Visible = true;
+
+            truhenLabel.Text = $"Truhen: {truhenCounter}";
+            fallenLabel.Text = $"Fallen: {fallenCounter}";
 
             dungeonNameLabel.Visible = true;
             dungeonName.Visible = true;
@@ -174,6 +184,7 @@ namespace DungeonWindows
 
         private void DokumentationInBox()
         {
+           
             dokumentationBox.Clear(); // RichTextBox leeren
 
             dokumentationBox.AppendText("                  DUNGEON DOKUMENTATION                  \n\n");
@@ -254,7 +265,16 @@ namespace DungeonWindows
             for (int y = 0; y < height; y++)
                 for (int x = 0; x < width; x++)
                     if (dungeon[y, x] == '.' && random.Next(100) < objectChance)
-                        dungeon[y, x] = random.Next(2) == 0 ? 'T' : 'F';
+                        if (random.Next(2) == 0)
+                        {
+                            dungeon[y, x] = 'T';
+                            truhenCounter++;
+                        }
+                        else
+                        {
+                            dungeon[y, x] = 'F';
+                            fallenCounter++;
+                        }
 
             return dungeon;
         }
@@ -312,7 +332,7 @@ namespace DungeonWindows
                     {
                         case '.': dungeonAusgabe.SelectionColor = Color.DarkGray; break;
                         case '#': dungeonAusgabe.SelectionColor = Color.White; break;
-                        case 'S': dungeonAusgabe.SelectionColor = Color.Green; break;
+                        case 'S': dungeonAusgabe.SelectionColor = Color.LawnGreen; break;
                         case 'E': dungeonAusgabe.SelectionColor = Color.Red; break;
                         case 'T': dungeonAusgabe.SelectionColor = Color.Yellow; break;
                         case 'F': dungeonAusgabe.SelectionColor = Color.DarkRed; break;
@@ -432,6 +452,16 @@ namespace DungeonWindows
         }
 
         private void pathLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void truhenLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fallenLabel_Click(object sender, EventArgs e)
         {
 
         }
