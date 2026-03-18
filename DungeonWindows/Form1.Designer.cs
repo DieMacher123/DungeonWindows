@@ -47,12 +47,13 @@ namespace DungeonWindows
             this.pathLabel = new System.Windows.Forms.Label();
             this.truhenLabel = new System.Windows.Forms.Label();
             this.fallenLabel = new System.Windows.Forms.Label();
+            this.statistikenLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // DokumentationBtn
             // 
             this.DokumentationBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DokumentationBtn.Location = new System.Drawing.Point(474, 236);
+            this.DokumentationBtn.Location = new System.Drawing.Point(538, 236);
             this.DokumentationBtn.Name = "DokumentationBtn";
             this.DokumentationBtn.Size = new System.Drawing.Size(116, 37);
             this.DokumentationBtn.TabIndex = 0;
@@ -63,7 +64,7 @@ namespace DungeonWindows
             // startBtn
             // 
             this.startBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startBtn.Location = new System.Drawing.Point(474, 191);
+            this.startBtn.Location = new System.Drawing.Point(538, 191);
             this.startBtn.Name = "startBtn";
             this.startBtn.Size = new System.Drawing.Size(116, 39);
             this.startBtn.TabIndex = 1;
@@ -74,7 +75,7 @@ namespace DungeonWindows
             // beendenBtn
             // 
             this.beendenBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.beendenBtn.Location = new System.Drawing.Point(474, 279);
+            this.beendenBtn.Location = new System.Drawing.Point(538, 279);
             this.beendenBtn.Name = "beendenBtn";
             this.beendenBtn.Size = new System.Drawing.Size(116, 38);
             this.beendenBtn.TabIndex = 2;
@@ -106,7 +107,7 @@ namespace DungeonWindows
             this.heightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.heightLabel.Location = new System.Drawing.Point(21, 37);
             this.heightLabel.Name = "heightLabel";
-            this.heightLabel.Size = new System.Drawing.Size(44, 16);
+            this.heightLabel.Size = new System.Drawing.Size(43, 16);
             this.heightLabel.TabIndex = 5;
             this.heightLabel.Text = "Höhe:";
             this.heightLabel.Visible = false;
@@ -118,7 +119,7 @@ namespace DungeonWindows
             this.widthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.widthLabel.Location = new System.Drawing.Point(19, 63);
             this.widthLabel.Name = "widthLabel";
-            this.widthLabel.Size = new System.Drawing.Size(46, 16);
+            this.widthLabel.Size = new System.Drawing.Size(45, 16);
             this.widthLabel.TabIndex = 6;
             this.widthLabel.Text = "Breite:";
             this.widthLabel.Visible = false;
@@ -130,7 +131,7 @@ namespace DungeonWindows
             this.objectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.objectLabel.Location = new System.Drawing.Point(7, 88);
             this.objectLabel.Name = "objectLabel";
-            this.objectLabel.Size = new System.Drawing.Size(58, 16);
+            this.objectLabel.Size = new System.Drawing.Size(57, 16);
             this.objectLabel.TabIndex = 7;
             this.objectLabel.Text = "Objekte:";
             this.objectLabel.Visible = false;
@@ -150,14 +151,14 @@ namespace DungeonWindows
             this.dungeonAusgabe.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dungeonAusgabe.BackColor = System.Drawing.Color.DimGray;
+            this.dungeonAusgabe.BackColor = System.Drawing.Color.Black;
             this.dungeonAusgabe.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dungeonAusgabe.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dungeonAusgabe.HideSelection = false;
             this.dungeonAusgabe.Location = new System.Drawing.Point(292, 12);
             this.dungeonAusgabe.Name = "dungeonAusgabe";
             this.dungeonAusgabe.ReadOnly = true;
-            this.dungeonAusgabe.Size = new System.Drawing.Size(815, 664);
+            this.dungeonAusgabe.Size = new System.Drawing.Size(894, 652);
             this.dungeonAusgabe.TabIndex = 9;
             this.dungeonAusgabe.Text = "";
             this.dungeonAusgabe.Visible = false;
@@ -214,7 +215,7 @@ namespace DungeonWindows
             this.dokumentationBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dokumentationBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dokumentationBox.HideSelection = false;
-            this.dokumentationBox.Location = new System.Drawing.Point(674, 1);
+            this.dokumentationBox.Location = new System.Drawing.Point(741, 12);
             this.dokumentationBox.Name = "dokumentationBox";
             this.dokumentationBox.ReadOnly = true;
             this.dokumentationBox.Size = new System.Drawing.Size(445, 419);
@@ -226,7 +227,7 @@ namespace DungeonWindows
             // pathBox
             // 
             this.pathBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.pathBox.Location = new System.Drawing.Point(47, 656);
+            this.pathBox.Location = new System.Drawing.Point(47, 654);
             this.pathBox.Name = "pathBox";
             this.pathBox.Size = new System.Drawing.Size(155, 20);
             this.pathBox.TabIndex = 15;
@@ -250,7 +251,7 @@ namespace DungeonWindows
             this.truhenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.truhenLabel.Location = new System.Drawing.Point(12, 169);
             this.truhenLabel.Name = "truhenLabel";
-            this.truhenLabel.Size = new System.Drawing.Size(53, 16);
+            this.truhenLabel.Size = new System.Drawing.Size(52, 16);
             this.truhenLabel.TabIndex = 17;
             this.truhenLabel.Text = "Truhen:";
             this.truhenLabel.Visible = false;
@@ -262,18 +263,30 @@ namespace DungeonWindows
             this.fallenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fallenLabel.Location = new System.Drawing.Point(17, 191);
             this.fallenLabel.Name = "fallenLabel";
-            this.fallenLabel.Size = new System.Drawing.Size(48, 16);
+            this.fallenLabel.Size = new System.Drawing.Size(47, 16);
             this.fallenLabel.TabIndex = 18;
             this.fallenLabel.Text = "Fallen:";
             this.fallenLabel.Visible = false;
             this.fallenLabel.Click += new System.EventHandler(this.fallenLabel_Click);
+            // 
+            // statistikenLabel
+            // 
+            this.statistikenLabel.AutoSize = true;
+            this.statistikenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statistikenLabel.Location = new System.Drawing.Point(5, 134);
+            this.statistikenLabel.Name = "statistikenLabel";
+            this.statistikenLabel.Size = new System.Drawing.Size(112, 25);
+            this.statistikenLabel.TabIndex = 19;
+            this.statistikenLabel.Text = "Statistiken";
+            this.statistikenLabel.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(1119, 688);
+            this.ClientSize = new System.Drawing.Size(1198, 676);
+            this.Controls.Add(this.statistikenLabel);
             this.Controls.Add(this.fallenLabel);
             this.Controls.Add(this.truhenLabel);
             this.Controls.Add(this.pathLabel);
@@ -322,6 +335,7 @@ namespace DungeonWindows
         private System.Windows.Forms.Label pathLabel;
         private System.Windows.Forms.Label truhenLabel;
         private System.Windows.Forms.Label fallenLabel;
+        private System.Windows.Forms.Label statistikenLabel;
     }
 }
 

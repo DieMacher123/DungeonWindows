@@ -36,7 +36,7 @@ namespace DungeonWindows
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -65,6 +65,7 @@ namespace DungeonWindows
             DokumentationBtn.Visible = false;
             beendenBtn.Visible = false;
             startBtn.Visible = false;
+
         }
 
         private void mainScreen()
@@ -80,11 +81,11 @@ namespace DungeonWindows
 
             generateBtn.Visible = true;
             exportBtn.Visible = true;
-            dungeonAusgabe.Visible = true;
-
 
             pathBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
+            heightInput.Text = "40";
+            widthInput.Text = "40";
+            objectInput.Text = "5";
         }
 
         private void generateBtn_Click(object sender, EventArgs e)
@@ -107,6 +108,8 @@ namespace DungeonWindows
             dungeonWidth = width;
             objectChance = objChance;
 
+            dungeonAusgabe.Visible = true;
+
             dungeon = GenerateDungeon(dungeonHeight, dungeonWidth);
             FarbigeAusgabe(dungeon);
             dungeonFertig = true;
@@ -114,6 +117,7 @@ namespace DungeonWindows
 
             truhenLabel.Visible = true;
             fallenLabel.Visible = true;
+            statistikenLabel.Visible = true;
 
             truhenLabel.Text = $"Truhen: {truhenCounter}";
             fallenLabel.Text = $"Fallen: {fallenCounter}";
@@ -184,7 +188,7 @@ namespace DungeonWindows
 
         private void DokumentationInBox()
         {
-           
+
             dokumentationBox.Clear(); // RichTextBox leeren
 
             dokumentationBox.AppendText("                  DUNGEON DOKUMENTATION                  \n\n");
