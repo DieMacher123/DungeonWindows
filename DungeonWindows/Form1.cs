@@ -104,6 +104,9 @@ namespace DungeonWindows
                 return;
             }
 
+            truhenCounter = 0;
+            fallenCounter = 0;
+
             dungeonHeight = height;
             dungeonWidth = width;
             objectChance = objChance;
@@ -114,11 +117,10 @@ namespace DungeonWindows
             FarbigeAusgabe(dungeon);
             dungeonFertig = true;
 
-
             truhenLabel.Visible = true;
             fallenLabel.Visible = true;
             statistikenLabel.Visible = true;
-
+            
             truhenLabel.Text = $"Truhen: {truhenCounter}";
             fallenLabel.Text = $"Fallen: {fallenCounter}";
 
