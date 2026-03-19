@@ -36,19 +36,19 @@ namespace DungeonWindows
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void startBtn_Click(object sender, EventArgs e)
         {
-        //öffnet den start
+            //öffnet den start
             mainScreen();
             hideButtons();
         }
 
         private void dokumentationBtn_Click(object sender, EventArgs e)
         {
-        //öffnet die dokumentation
+            //öffnet die dokumentation
             hideButtons();
             beendenBtn.Visible = true;
             startBtn.Visible = true;
@@ -59,13 +59,13 @@ namespace DungeonWindows
 
         private void beendenBtn_Click(object sender, EventArgs e)
         {
-        //verlassen des dungeons
+            //verlassen des dungeons
             Environment.Exit(0);
         }
 
         private void hideButtons()
         {
-        // versteckt die buttons
+            // versteckt die buttons
             DokumentationBtn.Visible = false;
             beendenBtn.Visible = false;
             startBtn.Visible = false;
@@ -74,7 +74,7 @@ namespace DungeonWindows
 
         private void mainScreen()
         {
-        //Der main screen mit feldern
+            //Der main screen mit feldern
             dokumentationBox.Visible = false;
             heightLabel.Visible = true;
             widthLabel.Visible = true;
@@ -87,7 +87,6 @@ namespace DungeonWindows
             generateBtn.Visible = true;
             exportBtn.Visible = true;
 
-            pathBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             heightInput.Text = "40";
             widthInput.Text = "40";
             objectInput.Text = "5";
@@ -98,7 +97,7 @@ namespace DungeonWindows
             int height;
             int width;
             int objChance;
-    	//überprüfung der Eingaben
+            //überprüfung der Eingaben
             bool heightOk = int.TryParse(heightInput.Text, out height);
             bool widthOk = int.TryParse(widthInput.Text, out width);
             bool objChanceOk = int.TryParse(objectInput.Text, out objChance);
@@ -125,58 +124,35 @@ namespace DungeonWindows
             truhenLabel.Visible = true;
             fallenLabel.Visible = true;
             statistikenLabel.Visible = true;
-            
+
             truhenLabel.Text = $"Truhen: {truhenCounter}";
             fallenLabel.Text = $"Fallen: {fallenCounter}";
 
-            dungeonNameLabel.Visible = true;
-            dungeonName.Visible = true;
 
-            pathBox.Visible = true;
-            pathLabel.Visible = true;
         }
 
         private void exportBtn_Click(object sender, EventArgs e)
         {
-            string dateiName = dungeonName.Text;
+
+            string standartPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             // Ungültige Zeichen prüfen
-            if (dateiName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
-            {
-                MessageBox.Show("Der Name enthält ungültige Zeichen!");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(dateiName))
-            {
-                MessageBox.Show("Bitte einen Dateinamen eingeben!");
-                return;
-            }
 
             if (dungeonFertig)
             {
-            //speichert dungeon als text datei und überprüft ob es die Datei gibt
-                string finalPath = pathBox.Text;
-                if (Directory.Exists(finalPath))
+                saveFileDialog.ShowDialog();
+                string dateiname = saveFileDialog.FileName;
+ 
+                if (Directory.Exists(standartPath))
                 {
-                    string pfad = Path.Combine(finalPath, dateiName + ".txt");
+                    string pfad = Path.Combine(standartPath, dateiname);
 
                     string gespeichertesDungeon = ArrayToText(dungeon);
 
-                    if (File.Exists(pfad))
-                    {
-                        if (MessageBox.Show("Willst du den Dungeon überschreiben?", "Bestätigung", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        {
-                            File.WriteAllText(pfad, gespeichertesDungeon);
-                            dungeonFertig = false;
-                        }
-                    }
-                    else
-                    {
-                        File.WriteAllText(pfad, gespeichertesDungeon);
-                        MessageBox.Show("Dungeon wurde gespeichert!");
-                        dungeonFertig = false;
-                    }
+
+                    File.WriteAllText(pfad, gespeichertesDungeon);
+                    MessageBox.Show("Dungeon wurde gespeichert!");
+
                 }
                 else
                 {
@@ -474,6 +450,11 @@ namespace DungeonWindows
         }
 
         private void fallenLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
         {
 
         }
