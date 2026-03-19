@@ -41,12 +41,14 @@ namespace DungeonWindows
 
         private void startBtn_Click(object sender, EventArgs e)
         {
+        //öffnet den start
             mainScreen();
             hideButtons();
         }
 
         private void dokumentationBtn_Click(object sender, EventArgs e)
         {
+        //öffnet die dokumentation
             hideButtons();
             beendenBtn.Visible = true;
             startBtn.Visible = true;
@@ -57,11 +59,13 @@ namespace DungeonWindows
 
         private void beendenBtn_Click(object sender, EventArgs e)
         {
+        //verlassen des dungeons
             Environment.Exit(0);
         }
 
         private void hideButtons()
         {
+        // versteckt die buttons
             DokumentationBtn.Visible = false;
             beendenBtn.Visible = false;
             startBtn.Visible = false;
@@ -70,6 +74,7 @@ namespace DungeonWindows
 
         private void mainScreen()
         {
+        //Der main screen mit feldern
             dokumentationBox.Visible = false;
             heightLabel.Visible = true;
             widthLabel.Visible = true;
@@ -93,7 +98,7 @@ namespace DungeonWindows
             int height;
             int width;
             int objChance;
-
+    	//überprüfung der Eingaben
             bool heightOk = int.TryParse(heightInput.Text, out height);
             bool widthOk = int.TryParse(widthInput.Text, out width);
             bool objChanceOk = int.TryParse(objectInput.Text, out objChance);
@@ -150,6 +155,7 @@ namespace DungeonWindows
 
             if (dungeonFertig)
             {
+            //speichert dungeon als text datei und überprüft ob es die Datei gibt
                 string finalPath = pathBox.Text;
                 if (Directory.Exists(finalPath))
                 {
