@@ -40,14 +40,11 @@ namespace DungeonWindows
             this.dungeonAusgabe = new System.Windows.Forms.RichTextBox();
             this.generateBtn = new System.Windows.Forms.Button();
             this.exportBtn = new System.Windows.Forms.Button();
-            this.dungeonName = new System.Windows.Forms.TextBox();
-            this.dungeonNameLabel = new System.Windows.Forms.Label();
             this.dokumentationBox = new System.Windows.Forms.RichTextBox();
-            this.pathBox = new System.Windows.Forms.TextBox();
-            this.pathLabel = new System.Windows.Forms.Label();
             this.truhenLabel = new System.Windows.Forms.Label();
             this.fallenLabel = new System.Windows.Forms.Label();
             this.statistikenLabel = new System.Windows.Forms.Label();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // DokumentationBtn
@@ -107,7 +104,7 @@ namespace DungeonWindows
             this.heightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.heightLabel.Location = new System.Drawing.Point(21, 37);
             this.heightLabel.Name = "heightLabel";
-            this.heightLabel.Size = new System.Drawing.Size(43, 16);
+            this.heightLabel.Size = new System.Drawing.Size(44, 16);
             this.heightLabel.TabIndex = 5;
             this.heightLabel.Text = "Höhe:";
             this.heightLabel.Visible = false;
@@ -119,7 +116,7 @@ namespace DungeonWindows
             this.widthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.widthLabel.Location = new System.Drawing.Point(19, 63);
             this.widthLabel.Name = "widthLabel";
-            this.widthLabel.Size = new System.Drawing.Size(45, 16);
+            this.widthLabel.Size = new System.Drawing.Size(46, 16);
             this.widthLabel.TabIndex = 6;
             this.widthLabel.Text = "Breite:";
             this.widthLabel.Visible = false;
@@ -131,7 +128,7 @@ namespace DungeonWindows
             this.objectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.objectLabel.Location = new System.Drawing.Point(7, 88);
             this.objectLabel.Name = "objectLabel";
-            this.objectLabel.Size = new System.Drawing.Size(57, 16);
+            this.objectLabel.Size = new System.Drawing.Size(58, 16);
             this.objectLabel.TabIndex = 7;
             this.objectLabel.Text = "Objekte:";
             this.objectLabel.Visible = false;
@@ -188,27 +185,6 @@ namespace DungeonWindows
             this.exportBtn.Visible = false;
             this.exportBtn.Click += new System.EventHandler(this.exportBtn_Click);
             // 
-            // dungeonName
-            // 
-            this.dungeonName.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.dungeonName.Location = new System.Drawing.Point(47, 616);
-            this.dungeonName.Name = "dungeonName";
-            this.dungeonName.Size = new System.Drawing.Size(155, 20);
-            this.dungeonName.TabIndex = 12;
-            this.dungeonName.Visible = false;
-            this.dungeonName.TextChanged += new System.EventHandler(this.dungeonName_TextChanged);
-            // 
-            // dungeonNameLabel
-            // 
-            this.dungeonNameLabel.AutoSize = true;
-            this.dungeonNameLabel.Location = new System.Drawing.Point(44, 600);
-            this.dungeonNameLabel.Name = "dungeonNameLabel";
-            this.dungeonNameLabel.Size = new System.Drawing.Size(38, 13);
-            this.dungeonNameLabel.TabIndex = 13;
-            this.dungeonNameLabel.Text = "Name:";
-            this.dungeonNameLabel.Visible = false;
-            this.dungeonNameLabel.Click += new System.EventHandler(this.dungeonNameLabel_Click);
-            // 
             // dokumentationBox
             // 
             this.dokumentationBox.BackColor = System.Drawing.Color.DimGray;
@@ -224,34 +200,13 @@ namespace DungeonWindows
             this.dokumentationBox.Visible = false;
             this.dokumentationBox.TextChanged += new System.EventHandler(this.dokumentationBox_TextChanged);
             // 
-            // pathBox
-            // 
-            this.pathBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.pathBox.Location = new System.Drawing.Point(47, 654);
-            this.pathBox.Name = "pathBox";
-            this.pathBox.Size = new System.Drawing.Size(155, 20);
-            this.pathBox.TabIndex = 15;
-            this.pathBox.Visible = false;
-            this.pathBox.TextChanged += new System.EventHandler(this.pathBox_TextChanged);
-            // 
-            // pathLabel
-            // 
-            this.pathLabel.AutoSize = true;
-            this.pathLabel.Location = new System.Drawing.Point(44, 639);
-            this.pathLabel.Name = "pathLabel";
-            this.pathLabel.Size = new System.Drawing.Size(32, 13);
-            this.pathLabel.TabIndex = 16;
-            this.pathLabel.Text = "Path:";
-            this.pathLabel.Visible = false;
-            this.pathLabel.Click += new System.EventHandler(this.pathLabel_Click);
-            // 
             // truhenLabel
             // 
             this.truhenLabel.AutoSize = true;
             this.truhenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.truhenLabel.Location = new System.Drawing.Point(12, 169);
             this.truhenLabel.Name = "truhenLabel";
-            this.truhenLabel.Size = new System.Drawing.Size(52, 16);
+            this.truhenLabel.Size = new System.Drawing.Size(53, 16);
             this.truhenLabel.TabIndex = 17;
             this.truhenLabel.Text = "Truhen:";
             this.truhenLabel.Visible = false;
@@ -263,7 +218,7 @@ namespace DungeonWindows
             this.fallenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fallenLabel.Location = new System.Drawing.Point(17, 191);
             this.fallenLabel.Name = "fallenLabel";
-            this.fallenLabel.Size = new System.Drawing.Size(47, 16);
+            this.fallenLabel.Size = new System.Drawing.Size(48, 16);
             this.fallenLabel.TabIndex = 18;
             this.fallenLabel.Text = "Fallen:";
             this.fallenLabel.Visible = false;
@@ -280,6 +235,10 @@ namespace DungeonWindows
             this.statistikenLabel.Text = "Statistiken";
             this.statistikenLabel.Visible = false;
             // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -289,11 +248,7 @@ namespace DungeonWindows
             this.Controls.Add(this.statistikenLabel);
             this.Controls.Add(this.fallenLabel);
             this.Controls.Add(this.truhenLabel);
-            this.Controls.Add(this.pathLabel);
-            this.Controls.Add(this.pathBox);
             this.Controls.Add(this.dokumentationBox);
-            this.Controls.Add(this.dungeonNameLabel);
-            this.Controls.Add(this.dungeonName);
             this.Controls.Add(this.exportBtn);
             this.Controls.Add(this.generateBtn);
             this.Controls.Add(this.dungeonAusgabe);
@@ -328,14 +283,11 @@ namespace DungeonWindows
         private System.Windows.Forms.RichTextBox dungeonAusgabe;
         private System.Windows.Forms.Button generateBtn;
         private System.Windows.Forms.Button exportBtn;
-        private System.Windows.Forms.TextBox dungeonName;
-        private System.Windows.Forms.Label dungeonNameLabel;
         private System.Windows.Forms.RichTextBox dokumentationBox;
-        private System.Windows.Forms.TextBox pathBox;
-        private System.Windows.Forms.Label pathLabel;
         private System.Windows.Forms.Label truhenLabel;
         private System.Windows.Forms.Label fallenLabel;
         private System.Windows.Forms.Label statistikenLabel;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 
