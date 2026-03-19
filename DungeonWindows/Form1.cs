@@ -98,7 +98,7 @@ namespace DungeonWindows
             bool widthOk = int.TryParse(widthInput.Text, out width);
             bool objChanceOk = int.TryParse(objectInput.Text, out objChance);
 
-            if (!objChanceOk || !heightOk || !widthOk || height < 10 || height > 400 || width < 10 || width > 400 || objChance == 0 || objChance > 100)
+            if (!objChanceOk || !heightOk || !widthOk || height < 10 || height > 40 || width < 10 || width > 40 || objChance == 0 || objChance > 100)
             {
                 MessageBox.Show("Fehlerhafte eingabe");
                 return;
