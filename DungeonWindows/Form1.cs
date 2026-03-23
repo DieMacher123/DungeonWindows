@@ -18,6 +18,12 @@ namespace DungeonWindows
 
         char[,] dungeon = new char[0, 0];
 
+        /*
+         * TODO:
+         * - Kommentare 
+         * - Export Dateiendung
+        */
+
         // Bilder laden
         Image wallImg;
         Image floorImg;
