@@ -125,20 +125,19 @@ namespace DungeonWindows
 
         private void exportBtn_Click(object sender, EventArgs e)
         {
-            string standartPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            if (!dungeonFertig) return;
 
-            if (dungeonFertig)
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                saveFileDialog.ShowDialog();
-                string dateiname = saveFileDialog.FileName;
+                string pfad = saveFileDialog.FileName;
 
-                if (Directory.Exists(standartPath))
-                {
-                    string pfad = Path.Combine(standartPath, dateiname + ".txt");
-                    string gespeichertesDungeon = ArrayToText(dungeon);
-                    File.WriteAllText(pfad, gespeichertesDungeon);
-                    // MessageBox.Show("Dungeon wurde gespeichert!");
-                }
+                if (Path.GetExtension(pfad) != ".txt")
+                    pfad += ".txt";
+
+                string gespeichertesDungeon = ArrayToText(dungeon);
+                File.WriteAllText(pfad, gespeichertesDungeon);
+
+                //MessageBox.Show("Dungeon wurde gespeichert!");
             }
         }
 
