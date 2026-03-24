@@ -21,7 +21,6 @@ namespace DungeonWindows
         /*
          * TODO:
          * - Kommentare 
-         * - Export Dateiendung
         */
 
         // Bilder laden
@@ -36,12 +35,12 @@ namespace DungeonWindows
         {
             InitializeComponent();
 
-            wallImg = Image.FromFile("bilder/wall.png");
-            floorImg = Image.FromFile("bilder/floor.png");
-            startImg = Image.FromFile("bilder/start.png");
-            exitImg = Image.FromFile("bilder/exit.png");
-            chestImg = Image.FromFile("bilder/chest.png");
-            trapImg = Image.FromFile("bilder/trap.png");
+            wallImg = Properties.Resources.wall;
+            floorImg = Properties.Resources.floor;
+            startImg = Properties.Resources.start;
+            exitImg = Properties.Resources.exit;
+            chestImg = Properties.Resources.chest;
+            trapImg = Properties.Resources.trap;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -95,7 +94,7 @@ namespace DungeonWindows
             bool widthOk = int.TryParse(widthInput.Text, out width);
             bool objChanceOk = int.TryParse(objectInput.Text, out objChance);
 
-            if (!objChanceOk || !heightOk || !widthOk || height < 10 || height > 40 || width < 10 || width > 40)
+            if (!objChanceOk || !heightOk || !widthOk || height < 10 || height > 200 || width < 10 || width > 200)
             {
                 MessageBox.Show("Fehlerhafte Eingabe");
                 return;
@@ -111,9 +110,10 @@ namespace DungeonWindows
             dungeonPanel.Visible = true;
 
             dungeon = GenerateDungeon(dungeonHeight, dungeonWidth);
-            DungeonMitBildern(dungeon);
+            dungeonPanel.Invalidate();
 
             dungeonFertig = true;
+            exportBtn.Enabled = true;
 
             truhenLabel.Visible = true;
             fallenLabel.Visible = true;
@@ -134,44 +134,38 @@ namespace DungeonWindows
 
                 if (Directory.Exists(standartPath))
                 {
-                    string pfad = Path.Combine(standartPath, dateiname);
+                    string pfad = Path.Combine(standartPath, dateiname + ".txt");
                     string gespeichertesDungeon = ArrayToText(dungeon);
                     File.WriteAllText(pfad, gespeichertesDungeon);
-                    MessageBox.Show("Dungeon wurde gespeichert!");
+                    // MessageBox.Show("Dungeon wurde gespeichert!");
                 }
             }
         }
 
-        public void DungeonMitBildern(char[,] dungeon)
+        private void dungeonPanel_Paint(object sender, PaintEventArgs e)
         {
-            dungeonPanel.Controls.Clear();
+            if (dungeon == null) return;
 
-            int tileSize = 15;
+            int tileSize = BerechneTileSize(dungeonWidth, dungeonHeight);
 
             for (int y = 0; y < dungeon.GetLength(0); y++)
             {
                 for (int x = 0; x < dungeon.GetLength(1); x++)
                 {
-                    PictureBox pic = new PictureBox();
-                    pic.Width = tileSize;
-                    pic.Height = tileSize;
-                    pic.Left = x * tileSize;
-                    pic.Top = y * tileSize;
-                    pic.SizeMode = PictureBoxSizeMode.StretchImage;
+                    Image img = null;
 
-                    char c = dungeon[y, x];
-
-                    switch (c)
+                    switch (dungeon[y, x])
                     {
-                        case '#': pic.Image = wallImg; break;
-                        case '.': pic.Image = floorImg; break;
-                        case 'S': pic.Image = startImg; break;
-                        case 'E': pic.Image = exitImg; break;
-                        case 'T': pic.Image = chestImg; break;
-                        case 'F': pic.Image = trapImg; break;
+                        case '#': img = wallImg; break;
+                        case '.': img = floorImg; break;
+                        case 'S': img = startImg; break;
+                        case 'E': img = exitImg; break;
+                        case 'T': img = chestImg; break;
+                        case 'F': img = trapImg; break;
                     }
 
-                    dungeonPanel.Controls.Add(pic);
+                    if (img != null)
+                        e.Graphics.DrawImage(img, x * tileSize, y * tileSize, tileSize, tileSize);
                 }
             }
         }
@@ -183,34 +177,58 @@ namespace DungeonWindows
 
             char[,] dungeon = new char[height, width];
 
-            // Wände
+            // Alles mit Wänden füllen
             for (int y = 0; y < height; y++)
                 for (int x = 0; x < width; x++)
                     dungeon[y, x] = '#';
 
-            // Wege
-            LabyrinthWege(dungeon, 1, 1);
+            // Startpunkt für Wege: immer ungerade Koordinaten
+            int startX = 1;
+            int startY = 1;
+            if (startX % 2 == 0) startX++;
+            if (startY % 2 == 0) startY++;
 
-            // Start setzen
+            // Wege generieren
+            LabyrinthWege(dungeon, startY, startX);
+
+            // Räume erzeugen
+            int anzahl = (width * height) / 50;
+            int raumAnzahl = Math.Min(50, anzahl);
+            raumAnzahl += random.Next(-2, 3);
+            raumAnzahl = Math.Max(2, raumAnzahl);
+
+            for (int r = 0; r < raumAnzahl; r++)
+            {
+                int raumBreite = random.Next(2, 4);
+                int raumHöhe = random.Next(2, 4);
+                int rx = random.Next(1, width - raumBreite - 1);
+                int ry = random.Next(1, height - raumHöhe - 1);
+
+                for (int y = ry; y < ry + raumHöhe; y++)
+                    for (int x = rx; x < rx + raumBreite; x++)
+                        dungeon[y, x] = '.';
+            }
+
+            // Start zufällig auf einem ungeraden Feld
             int sx, sy;
             do
             {
                 sx = random.Next(1, width - 1);
                 sy = random.Next(1, height - 1);
-            }
-            while (dungeon[sy, sx] != '.');
-
+            } while (dungeon[sy, sx] != '.');
+            if (sx % 2 == 0) sx--;
+            if (sy % 2 == 0) sy--;
             dungeon[sy, sx] = 'S';
 
-            // Exit setzen
+            // Exit zufällig auf einem ungeraden Feld
             int ex, ey;
             do
             {
                 ex = random.Next(1, width - 1);
                 ey = random.Next(1, height - 1);
-            }
-            while (dungeon[ey, ex] != '.');
-
+            } while (dungeon[ey, ex] != '.');
+            if (ex % 2 == 0) ex--;
+            if (ey % 2 == 0) ey--;
             dungeon[ey, ex] = 'E';
 
             // Truhen & Fallen
@@ -288,6 +306,32 @@ namespace DungeonWindows
             return dungeonText;
         }
 
+
+        private int BerechneTileSize(int dungeonWidth, int dungeonHeight)
+        {
+            if (dungeonWidth <= 0) dungeonWidth = 1;
+            if (dungeonHeight <= 0) dungeonHeight = 1;
+
+            int minTile = 3;
+            int maxAllowedTile = 30; // nie größer als Panel zulässt
+
+            // Dynamisches maxTile: kleineres Dungeon → größere Kacheln
+            int maxTile = (int)Math.Ceiling(650.0 / Math.Max(dungeonWidth, dungeonHeight));
+            // 600px ist Beispiel für Panelgröße, passt auf dein Panel an
+            if (maxTile > maxAllowedTile) maxTile = maxAllowedTile;
+
+            int maxMap = 40; // Bezugsgröße für Standardberechnung
+
+            int sizeW = maxMap * maxTile / dungeonWidth;
+            int sizeH = maxMap * maxTile / dungeonHeight;
+            int tileSize = Math.Min(sizeW, sizeH);
+
+            if (tileSize < minTile) tileSize = minTile;
+            if (tileSize > maxAllowedTile) tileSize = maxAllowedTile;
+
+            return tileSize;
+        }
+
         private void heightLabel_Click(object sender, EventArgs e)
         {
 
@@ -353,6 +397,6 @@ namespace DungeonWindows
         {
 
         }
- 
+
     }
 }
