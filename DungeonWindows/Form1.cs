@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DungeonWindows
@@ -17,6 +19,8 @@ namespace DungeonWindows
         private static int truhenCounter = 0;
 
         char[,] dungeon = new char[0, 0];
+
+        private Stopwatch stopwatch = new Stopwatch();
 
         /*
          * TODO:
@@ -43,11 +47,6 @@ namespace DungeonWindows
             trapImg = Properties.Resources.trap;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void startBtn_Click(object sender, EventArgs e)
         {
             mainScreen();
@@ -59,15 +58,13 @@ namespace DungeonWindows
             Environment.Exit(0);
         }
 
-        private void hideButtons()
+        private void beendenBtn2_Click(object sender, EventArgs e)
         {
-            beendenBtn.Visible = false;
-            startBtn.Visible = false;
+            beendenBtn_Click(sender, e);
         }
 
         private void mainScreen()
         {
-
             heightLabel.Visible = true;
             widthLabel.Visible = true;
             objectLabel.Visible = true;
@@ -78,10 +75,41 @@ namespace DungeonWindows
 
             generateBtn.Visible = true;
             exportBtn.Visible = true;
+            helpBtn.Visible = true;
+            beendenBtn2.Visible = true;
 
             heightInput.Text = "40";
             widthInput.Text = "40";
             objectInput.Text = "5";
+        }
+
+        private void hideButtons()
+        {
+            beendenBtn.Visible = false;
+            startBtn.Visible = false;
+        }
+
+        private void helpBtn_Click(object sender, EventArgs e)
+        {
+            dokumentationLabel.Visible = !dokumentationLabel.Visible;
+
+            truheIconLabel.Visible = !truheIconLabel.Visible;
+            truhenIcon.Visible = !truhenIcon.Visible;
+
+            falleIconLabel.Visible = !falleIconLabel.Visible;
+            fallenIcon.Visible = !fallenIcon.Visible;
+
+            bodenIconLabel.Visible = !bodenIconLabel.Visible;
+            bodenIcon.Visible = !bodenIcon.Visible;
+
+            wandIconLabel.Visible = !wandIconLabel.Visible;
+            wandIcon.Visible = !wandIcon.Visible;
+
+            endeIconLabel.Visible = !endeIconLabel.Visible;
+            endeIcon.Visible = !endeIcon.Visible;
+
+            startIconLabel.Visible = !startIconLabel.Visible;
+            startIcon.Visible = !startIcon.Visible;
         }
 
         private void generateBtn_Click(object sender, EventArgs e)
@@ -94,7 +122,7 @@ namespace DungeonWindows
             bool widthOk = int.TryParse(widthInput.Text, out width);
             bool objChanceOk = int.TryParse(objectInput.Text, out objChance);
 
-            if (!objChanceOk || !heightOk || !widthOk || height < 10 || height > 40 || width < 10 || width > 40)
+            if (!objChanceOk || !heightOk || !widthOk || height < 10 || height > 200 || width < 10 || width > 200)
             {
                 MessageBox.Show("Fehlerhafte Eingabe");
                 return;
@@ -107,20 +135,25 @@ namespace DungeonWindows
             dungeonWidth = width;
             objectChance = objChance;
 
-            dungeonPanel.Visible = true;
+            timerLabel.Text = $"Zeit: 0 ms";
+
+            stopwatch.Restart();
 
             dungeon = GenerateDungeon(dungeonHeight, dungeonWidth);
+
+            truhenLabel.Text = $"Truhen: {truhenCounter}";
+            fallenLabel.Text = $"Fallen: {fallenCounter}";
+
+            dungeonPanel.Visible = true;
             dungeonPanel.Invalidate();
 
             dungeonFertig = true;
             exportBtn.Enabled = true;
 
+            statistikenLabel.Visible = true;
             truhenLabel.Visible = true;
             fallenLabel.Visible = true;
-            statistikenLabel.Visible = true;
-
-            truhenLabel.Text = $"Truhen: {truhenCounter}";
-            fallenLabel.Text = $"Fallen: {fallenCounter}";
+            timerLabel.Visible = true;
         }
 
         private void exportBtn_Click(object sender, EventArgs e)
@@ -136,8 +169,6 @@ namespace DungeonWindows
 
                 string gespeichertesDungeon = ArrayToText(dungeon);
                 File.WriteAllText(pfad, gespeichertesDungeon);
-
-                //MessageBox.Show("Dungeon wurde gespeichert!");
             }
         }
 
@@ -167,6 +198,9 @@ namespace DungeonWindows
                         e.Graphics.DrawImage(img, x * tileSize, y * tileSize, tileSize, tileSize);
                 }
             }
+
+            stopwatch.Stop();
+            timerLabel.Text = $"Zeit: {stopwatch.ElapsedMilliseconds} ms";
         }
 
         public static char[,] GenerateDungeon(int height, int width)
@@ -214,20 +248,19 @@ namespace DungeonWindows
             {
                 sx = random.Next(1, width - 1);
                 sy = random.Next(1, height - 1);
-            } while (dungeon[sy, sx] != '.');
-            if (sx % 2 == 0) sx--;
-            if (sy % 2 == 0) sy--;
+            }
+            while (dungeon[sy, sx] != '.');
             dungeon[sy, sx] = 'S';
 
-            // Exit zufällig auf einem ungeraden Feld
-            int ex, ey;
+            // Endpunkt setzen (mit Mindestabstand)
+            int ex, ey, abstand;
             do
             {
                 ex = random.Next(1, width - 1);
                 ey = random.Next(1, height - 1);
-            } while (dungeon[ey, ex] != '.');
-            if (ex % 2 == 0) ex--;
-            if (ey % 2 == 0) ey--;
+                abstand = Math.Abs(ex - sx) + Math.Abs(ey - sy);
+            }
+            while (dungeon[ey, ex] != '.' || abstand < 8);
             dungeon[ey, ex] = 'E';
 
             // Truhen & Fallen
@@ -305,30 +338,23 @@ namespace DungeonWindows
             return dungeonText;
         }
 
-
         private int BerechneTileSize(int dungeonWidth, int dungeonHeight)
         {
-            if (dungeonWidth <= 0) dungeonWidth = 1;
-            if (dungeonHeight <= 0) dungeonHeight = 1;
+            int maxSize = Math.Max(dungeonWidth, dungeonHeight);
 
-            int minTile = 3;
-            int maxAllowedTile = 30; // nie größer als Panel zulässt
+            if (maxSize < 10) maxSize = 10;
+            if (maxSize > 40) maxSize = 40;
 
-            // Dynamisches maxTile: kleineres Dungeon → größere Kacheln
-            int maxTile = (int)Math.Ceiling(650.0 / Math.Max(dungeonWidth, dungeonHeight));
-            // 600px ist Beispiel für Panelgröße, passt auf dein Panel an
-            if (maxTile > maxAllowedTile) maxTile = maxAllowedTile;
-
-            int maxMap = 40; // Bezugsgröße für Standardberechnung
-
-            int sizeW = maxMap * maxTile / dungeonWidth;
-            int sizeH = maxMap * maxTile / dungeonHeight;
-            int tileSize = Math.Min(sizeW, sizeH);
-
-            if (tileSize < minTile) tileSize = minTile;
-            if (tileSize > maxAllowedTile) tileSize = maxAllowedTile;
+            double t = (maxSize - 10) / 30.0; // 0 bis 1
+            int tileSize = (int)(30 - t * (30 - 17));
+            tileSize = Math.Max(17, Math.Min(30, tileSize));
 
             return tileSize;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void heightLabel_Click(object sender, EventArgs e)
@@ -397,5 +423,89 @@ namespace DungeonWindows
 
         }
 
+        private void statistikenLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timerLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fallenLabel_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void truhenLabel_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void truheIconLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void truhenIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void falleIconLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bodenIconLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void wandIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void wandIconLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void endeIconLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void startIconLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fallenIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void startIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bodenIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void endeIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dokumentationLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
