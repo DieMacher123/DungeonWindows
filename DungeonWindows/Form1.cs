@@ -8,6 +8,17 @@ namespace DungeonWindows
 {
     public partial class Form1 : Form
     {
+
+        /*
+         * TODO:
+         *  - Kommentare
+         *  - Ende vollenden
+         *  - spieler größe anpassen
+         *  - Fallen funktion
+         *  - Truhen funktion
+         *  - Leben
+         */
+
         private static Random random = new Random();
 
         private static bool dungeonFertig = false;
