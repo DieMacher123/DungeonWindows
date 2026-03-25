@@ -23,29 +23,17 @@ namespace DungeonWindows
 
         private Stopwatch stopwatch = new Stopwatch();
         private Stopwatch moveCooldown = new Stopwatch();
-        private int moveDelayMs = 60; // Delay in ms
+        private int moveDelayMs = 60;
 
         private Bitmap dungeonBitmap;
 
-        /*
-         * TODO:
-         * - Kommentare 
-        */
-
-        // Bilder laden
-        Image wallImg;
-        Image floorImg;
-        Image startImg;
-        Image exitImg;
-        Image chestImg;
-        Image trapImg;
-        Image playerImg;
+        Image wallImg, floorImg, startImg, exitImg, chestImg, trapImg, playerImg;
 
         public Form1()
         {
             InitializeComponent();
 
-
+            // Ressourcen laden
             wallImg = Properties.Resources.wall;
             floorImg = Properties.Resources.floor;
             startImg = Properties.Resources.start;
@@ -61,15 +49,8 @@ namespace DungeonWindows
             hideButtons();
         }
 
-        private void beendenBtn_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
-        private void beendenBtn2_Click(object sender, EventArgs e)
-        {
-            beendenBtn_Click(sender, e);
-        }
+        private void beendenBtn_Click(object sender, EventArgs e) => Environment.Exit(0);
+        private void beendenBtn2_Click(object sender, EventArgs e) => beendenBtn_Click(sender, e);
 
         private void mainScreen()
         {
@@ -100,37 +81,27 @@ namespace DungeonWindows
         private void helpBtn_Click(object sender, EventArgs e)
         {
             dokumentationLabel.Visible = !dokumentationLabel.Visible;
-
             truheIconLabel.Visible = !truheIconLabel.Visible;
             truhenIcon.Visible = !truhenIcon.Visible;
-
             falleIconLabel.Visible = !falleIconLabel.Visible;
             fallenIcon.Visible = !fallenIcon.Visible;
-
             bodenIconLabel.Visible = !bodenIconLabel.Visible;
             bodenIcon.Visible = !bodenIcon.Visible;
-
             wandIconLabel.Visible = !wandIconLabel.Visible;
             wandIcon.Visible = !wandIcon.Visible;
-
             endeIconLabel.Visible = !endeIconLabel.Visible;
             endeIcon.Visible = !endeIcon.Visible;
-
             startIconLabel.Visible = !startIconLabel.Visible;
             startIcon.Visible = !startIcon.Visible;
         }
 
         private void generateBtn_Click(object sender, EventArgs e)
         {
-            int height;
-            int width;
-            int objChance;
-
-            bool heightOk = int.TryParse(heightInput.Text, out height);
-            bool widthOk = int.TryParse(widthInput.Text, out width);
-            bool objChanceOk = int.TryParse(objectInput.Text, out objChance);
-
-            if (!objChanceOk || !heightOk || !widthOk || height < 10 || height > 40 || width < 10 || width > 40)
+            if (!int.TryParse(heightInput.Text, out int height) ||
+                !int.TryParse(widthInput.Text, out int width) ||
+                !int.TryParse(objectInput.Text, out int objChance) ||
+                height < 10 || height > 40 ||
+                width < 10 || width > 40)
             {
                 MessageBox.Show("Fehlerhafte Eingabe");
                 return;
@@ -138,14 +109,13 @@ namespace DungeonWindows
 
             truhenCounter = 0;
             fallenCounter = 0;
-
             dungeonHeight = height;
             dungeonWidth = width;
             objectChance = objChance;
 
             timerLabel.Text = $"Zeit: 0 ms";
-
-            stopwatch.Restart(); moveCooldown.Restart();
+            stopwatch.Restart();
+            moveCooldown.Restart();
 
             dungeon = GenerateDungeon(dungeonHeight, dungeonWidth);
             RenderDungeonBitmap();
@@ -159,22 +129,13 @@ namespace DungeonWindows
             dungeonPanel.Visible = true;
             dungeonPanel.Invalidate();
 
+            // Spielerposition suchen
             for (int y = 0; y < dungeon.GetLength(0); y++)
-            {
                 for (int x = 0; x < dungeon.GetLength(1); x++)
-                {
-                    if (dungeon[y, x] == 'S')
-                    {
-                        playerX = x;
-                        playerY = y;
-                    }
-                }
-            }
-
+                    if (dungeon[y, x] == 'S') { playerX = x; playerY = y; }
 
             dungeonFertig = true;
             exportBtn.Enabled = true;
-
             statistikenLabel.Visible = true;
             truhenLabel.Visible = true;
             fallenLabel.Visible = true;
@@ -188,12 +149,8 @@ namespace DungeonWindows
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string pfad = saveFileDialog.FileName;
-
-                if (Path.GetExtension(pfad) != ".txt")
-                    pfad += ".txt";
-
-                string gespeichertesDungeon = ArrayToText(dungeon);
-                File.WriteAllText(pfad, gespeichertesDungeon);
+                if (Path.GetExtension(pfad) != ".txt") pfad += ".txt";
+                File.WriteAllText(pfad, ArrayToText(dungeon));
             }
         }
 
@@ -206,13 +163,9 @@ namespace DungeonWindows
             e.Graphics.DrawImage(playerImg, playerX * tileSize, playerY * tileSize, tileSize, tileSize);
 
             stopwatch.Stop();
-            timerLabel.Text = "Zeit: " + stopwatch.ElapsedMilliseconds + " ms";
+            timerLabel.Text = $"Zeit: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        // Backbuffer speichern
-
-
-        // Nach Dungeon-Generierung einmal rendern
         private void RenderDungeonBitmap()
         {
             int tileSize = BerechneTileSize(dungeonWidth, dungeonHeight);
@@ -221,13 +174,10 @@ namespace DungeonWindows
             using (Graphics g = Graphics.FromImage(dungeonBitmap))
             {
                 for (int y = 0; y < dungeon.GetLength(0); y++)
-                {
                     for (int x = 0; x < dungeon.GetLength(1); x++)
                     {
                         Image img = null;
-                        char c = dungeon[y, x];
-
-                        switch (c)
+                        switch (dungeon[y, x])
                         {
                             case '#': img = wallImg; break;
                             case '.': img = floorImg; break;
@@ -236,79 +186,58 @@ namespace DungeonWindows
                             case 'T': img = chestImg; break;
                             case 'F': img = trapImg; break;
                         }
-
-                        if (img != null)
+                        if (img != null) 
                             g.DrawImage(img, x * tileSize, y * tileSize, tileSize, tileSize);
                     }
-                }
             }
         }
 
         public static char[,] GenerateDungeon(int height, int width)
         {
-            if (height % 2 == 0) height++;
-            if (width % 2 == 0) width++;
+            if (height % 2 == 0) height--;
+            if (width % 2 == 0) width--;
 
             char[,] dungeon = new char[height, width];
 
-            // Alles mit Wänden füllen
             for (int y = 0; y < height; y++)
                 for (int x = 0; x < width; x++)
                     dungeon[y, x] = '#';
 
-            // Startpunkt für Wege: immer ungerade Koordinaten
-            int startX = 1;
-            int startY = 1;
-            if (startX % 2 == 0) startX++;
-            if (startY % 2 == 0) startY++;
+            LabyrinthWege(dungeon, 1, 1);
 
-            // Wege generieren
-            LabyrinthWege(dungeon, startY, startX);
-
-            // Räume erzeugen
-            int anzahl = (width * height) / 50;
-            int raumAnzahl = Math.Min(50, anzahl);
-            raumAnzahl += random.Next(-2, 3);
+            int raumAnzahl = Math.Min(50, (width * height) / 50) + random.Next(-2, 3);
             raumAnzahl = Math.Max(2, raumAnzahl);
 
             for (int r = 0; r < raumAnzahl; r++)
             {
-                int raumBreite = random.Next(2, 4);
-                int raumHöhe = random.Next(2, 4);
-                int rx = random.Next(1, width - raumBreite - 1);
-                int ry = random.Next(1, height - raumHöhe - 1);
+                int rw = random.Next(2, 4);
+                int rh = random.Next(2, 4);
+                int rx = random.Next(1, width - rw - 1);
+                int ry = random.Next(1, height - rh - 1);
 
-                for (int y = ry; y < ry + raumHöhe; y++)
-                    for (int x = rx; x < rx + raumBreite; x++)
+                for (int y = ry; y < ry + rh; y++)
+                    for (int x = rx; x < rx + rw; x++)
                         dungeon[y, x] = '.';
             }
 
-            // Start zufällig auf einem ungeraden Feld
+            // Start
             int sx, sy;
-            do
-            {
-                sx = random.Next(1, width - 1);
-                sy = random.Next(1, height - 1);
-            }
+            do { sx = random.Next(1, width - 1); sy = random.Next(1, height - 1); }
             while (dungeon[sy, sx] != '.');
             dungeon[sy, sx] = 'S';
 
-            // Endpunkt setzen (mit Mindestabstand)
-            int ex, ey, abstand;
+            // Ende
+            int ex, ey;
             do
             {
                 ex = random.Next(1, width - 1);
                 ey = random.Next(1, height - 1);
-                abstand = Math.Abs(ex - sx) + Math.Abs(ey - sy);
-            }
-            while (dungeon[ey, ex] != '.' || abstand < 8);
+            } while (dungeon[ey, ex] != '.' || Math.Abs(ex - sx) + Math.Abs(ey - sy) < 8);
             dungeon[ey, ex] = 'E';
 
-            // Truhen & Fallen
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
+            // Truhen/Fallen
+            for (int y = 1; y < height - 1; y++)
+                for (int x = 1; x < width - 1; x++)
                     if (dungeon[y, x] == '.' && random.Next(100) < objectChance)
                     {
                         if (random.Next(2) == 0)
@@ -322,8 +251,6 @@ namespace DungeonWindows
                             fallenCounter++;
                         }
                     }
-                }
-            }
 
             return dungeon;
         }
@@ -332,28 +259,16 @@ namespace DungeonWindows
         {
             dungeon[y, x] = '.';
 
-            int[][] dirs =
-            {
-                new int[]{ 0, 2 },
-                new int[]{ 0,-2 },
-                new int[]{ 2, 0 },
-                new int[]{-2, 0 }
-            };
-
+            int[][] dirs = { new int[] { 0, 2 }, new int[] { 0, -2 }, new int[] { 2, 0 }, new int[] { -2, 0 } };
             for (int i = 0; i < dirs.Length; i++)
             {
                 int r = random.Next(dirs.Length);
-                int[] temp = dirs[i];
-                dirs[i] = dirs[r];
-                dirs[r] = temp;
+                var tmp = dirs[i]; dirs[i] = dirs[r]; dirs[r] = tmp;
             }
 
-            for (int i = 0; i < dirs.Length; i++)
+            foreach (var d in dirs)
             {
-                int[] d = dirs[i];
-                int nx = x + d[1];
-                int ny = y + d[0];
-
+                int nx = x + d[1], ny = y + d[0];
                 if (ny > 0 && ny < dungeon.GetLength(0) - 1 &&
                     nx > 0 && nx < dungeon.GetLength(1) - 1 &&
                     dungeon[ny, nx] == '#')
@@ -366,87 +281,74 @@ namespace DungeonWindows
 
         private static string ArrayToText(char[,] dungeon)
         {
-            string dungeonText = "";
-
+            string txt = "";
             for (int y = 0; y < dungeon.GetLength(0); y++)
             {
-                for (int x = 0; x < dungeon.GetLength(1); x++)
-                    dungeonText += dungeon[y, x];
-
-                dungeonText += "\n";
+                for (int x = 0; x < dungeon.GetLength(1); x++) txt += dungeon[y, x];
+                txt += "\n";
             }
-
-            return dungeonText;
+            return txt;
         }
 
-        private int BerechneTileSize(int dungeonWidth, int dungeonHeight)
+        private int BerechneTileSize(int w, int h)
         {
-            int maxSize = Math.Max(dungeonWidth, dungeonHeight);
+            int maxSize = Math.Max(w, h);
 
             if (maxSize < 10) maxSize = 10;
             if (maxSize > 40) maxSize = 40;
 
-            double t = (maxSize - 10) / 30.0; // 0 bis 1
-            int tileSize = (int)(30 - t * (30 - 17));
-            tileSize = Math.Max(17, Math.Min(30, tileSize));
+            double t = (maxSize - 10) / 30.0;
+            int ts = (int)(30 - t * (30 - 17));
 
-            return tileSize;
+            return Math.Max(17, Math.Min(30, ts));
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            // Nur W/A/S/D erlauben
             if (e.KeyCode != Keys.W &&
                 e.KeyCode != Keys.A &&
                 e.KeyCode != Keys.S &&
-                e.KeyCode != Keys.D)
-                return;
+                e.KeyCode != Keys.D) return;
 
-            // Bewegungscooldown
-            if (moveCooldown.ElapsedMilliseconds < moveDelayMs)
-                return;
-
+            if (moveCooldown.ElapsedMilliseconds < moveDelayMs) return;
             moveCooldown.Restart();
 
-            int newX = playerX;
-            int newY = playerY;
+            int nx = playerX, ny = playerY;
 
-            if (e.KeyCode == Keys.W) newY--;
-            else if (e.KeyCode == Keys.S) newY++;
-            else if (e.KeyCode == Keys.A) newX--; 
-            else if (e.KeyCode == Keys.D) newX++;
+            if (e.KeyCode == Keys.W) ny--;
+            else if (e.KeyCode == Keys.S) ny++;
+            else if (e.KeyCode == Keys.A) nx--;
+            else if (e.KeyCode == Keys.D) nx++;
 
-            // Grenzen prüfen
-            if (newX < 0 || newY < 0 ||
-                newX >= dungeon.GetLength(1) ||
-                newY >= dungeon.GetLength(0))
-                return;
+            if (nx <= 0 ||
+                ny <= 0 ||
+                nx >= dungeon.GetLength(1) - 1 ||
+                ny >= dungeon.GetLength(0) - 1) return;
 
-            // Wand prüfen
-            if (dungeon[newY, newX] != '#')
+            if (dungeon[ny, nx] != '#')
             {
-                playerX = newX;
-                playerY = newY;
+                playerX = nx; playerY = ny;
 
-                // Truhe betreten?
-                if (dungeon[newY, newX] == 'T')
+                if (dungeon[ny, nx] == 'T')
                 {
-                    dungeon[newY, newX] = '.';      // Truhe verschwindet
-                    truhenCounter--;                // Zähler aktualisieren
+                    dungeon[ny, nx] = '.'; truhenCounter--;
                     truhenLabel.Text = $"Truhen: {truhenCounter}";
-
-                    RenderDungeonBitmap();          // Backbuffer neu zeichnen
+                    RenderDungeonBitmap();
                 }
 
-                // Ziel erreicht
-                if (dungeon[newY, newX] == 'E')
+                if (dungeon[ny, nx] == 'F')
                 {
-                    MessageBox.Show("Gewonnen!");
+                    dungeon[ny, nx] = '.'; fallenCounter--;
+                    fallenLabel.Text = $"Fallen: {fallenCounter}";
+                    RenderDungeonBitmap();
                 }
 
-                dungeonPanel.Invalidate();         // Panel neu zeichnen
+                if (dungeon[ny, nx] == 'E') MessageBox.Show("Gewonnen!");
+
+                dungeonPanel.Invalidate();
             }
         }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
