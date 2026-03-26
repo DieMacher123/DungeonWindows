@@ -58,7 +58,7 @@ namespace DungeonWindows
             // startBtn
             // 
             this.startBtn.BackColor = System.Drawing.Color.White;
-            this.startBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startBtn.Font = new System.Drawing.Font("Unispace", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startBtn.Location = new System.Drawing.Point(193, 223);
             this.startBtn.Name = "startBtn";
             this.startBtn.Size = new System.Drawing.Size(116, 39);
@@ -70,7 +70,7 @@ namespace DungeonWindows
             // beendenBtn
             // 
             this.beendenBtn.BackColor = System.Drawing.Color.White;
-            this.beendenBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.beendenBtn.Font = new System.Drawing.Font("Unispace", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.beendenBtn.Location = new System.Drawing.Point(193, 283);
             this.beendenBtn.Name = "beendenBtn";
             this.beendenBtn.Size = new System.Drawing.Size(116, 38);
@@ -83,7 +83,7 @@ namespace DungeonWindows
             // 
             this.heightInput.Location = new System.Drawing.Point(85, 36);
             this.heightInput.Name = "heightInput";
-            this.heightInput.Size = new System.Drawing.Size(100, 22);
+            this.heightInput.Size = new System.Drawing.Size(100, 20);
             this.heightInput.TabIndex = 11;
             this.heightInput.Visible = false;
             // 
@@ -91,15 +91,14 @@ namespace DungeonWindows
             // 
             this.widthInput.Location = new System.Drawing.Point(85, 62);
             this.widthInput.Name = "widthInput";
-            this.widthInput.Size = new System.Drawing.Size(100, 22);
+            this.widthInput.Size = new System.Drawing.Size(100, 20);
             this.widthInput.TabIndex = 10;
             this.widthInput.Visible = false;
-            this.widthInput.TextChanged += new System.EventHandler(this.widthInput_TextChanged_1);
             // 
             // heightLabel
             // 
             this.heightLabel.BackColor = System.Drawing.Color.Transparent;
-            this.heightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.heightLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.heightLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.heightLabel.Location = new System.Drawing.Point(7, 36);
             this.heightLabel.Name = "heightLabel";
@@ -111,7 +110,7 @@ namespace DungeonWindows
             // widthLabel
             // 
             this.widthLabel.BackColor = System.Drawing.Color.Transparent;
-            this.widthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.widthLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.widthLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.widthLabel.Location = new System.Drawing.Point(7, 62);
             this.widthLabel.Name = "widthLabel";
@@ -123,7 +122,7 @@ namespace DungeonWindows
             // objectLabel
             // 
             this.objectLabel.BackColor = System.Drawing.Color.Transparent;
-            this.objectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.objectLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.objectLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.objectLabel.Location = new System.Drawing.Point(7, 88);
             this.objectLabel.Name = "objectLabel";
@@ -136,14 +135,14 @@ namespace DungeonWindows
             // 
             this.objectInput.Location = new System.Drawing.Point(85, 88);
             this.objectInput.Name = "objectInput";
-            this.objectInput.Size = new System.Drawing.Size(100, 22);
+            this.objectInput.Size = new System.Drawing.Size(100, 20);
             this.objectInput.TabIndex = 6;
             this.objectInput.Visible = false;
             // 
             // generateBtn
             // 
             this.generateBtn.BackColor = System.Drawing.Color.White;
-            this.generateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.generateBtn.Font = new System.Drawing.Font("Unispace", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.generateBtn.Location = new System.Drawing.Point(24, 600);
             this.generateBtn.Name = "generateBtn";
             this.generateBtn.Size = new System.Drawing.Size(123, 46);
@@ -157,7 +156,7 @@ namespace DungeonWindows
             // 
             this.exportBtn.BackColor = System.Drawing.Color.White;
             this.exportBtn.Enabled = false;
-            this.exportBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exportBtn.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exportBtn.Location = new System.Drawing.Point(24, 652);
             this.exportBtn.Name = "exportBtn";
             this.exportBtn.Size = new System.Drawing.Size(75, 23);
@@ -170,7 +169,7 @@ namespace DungeonWindows
             // truhenLabel
             // 
             this.truhenLabel.BackColor = System.Drawing.Color.Transparent;
-            this.truhenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.truhenLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.truhenLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.truhenLabel.Location = new System.Drawing.Point(13, 171);
             this.truhenLabel.Name = "truhenLabel";
@@ -183,7 +182,7 @@ namespace DungeonWindows
             // fallenLabel
             // 
             this.fallenLabel.BackColor = System.Drawing.Color.Transparent;
-            this.fallenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fallenLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fallenLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.fallenLabel.Location = new System.Drawing.Point(13, 194);
             this.fallenLabel.Name = "fallenLabel";
@@ -207,7 +206,7 @@ namespace DungeonWindows
             // statistikenLabel
             // 
             this.statistikenLabel.BackColor = System.Drawing.Color.Transparent;
-            this.statistikenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statistikenLabel.Font = new System.Drawing.Font("Unispace", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statistikenLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.statistikenLabel.Location = new System.Drawing.Point(6, 139);
             this.statistikenLabel.Name = "statistikenLabel";
@@ -220,7 +219,7 @@ namespace DungeonWindows
             // timerLabel
             // 
             this.timerLabel.BackColor = System.Drawing.Color.Transparent;
-            this.timerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timerLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timerLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.timerLabel.Location = new System.Drawing.Point(27, 216);
             this.timerLabel.Name = "timerLabel";
@@ -233,7 +232,7 @@ namespace DungeonWindows
             // dokumentationLabel
             // 
             this.dokumentationLabel.BackColor = System.Drawing.Color.Transparent;
-            this.dokumentationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dokumentationLabel.Font = new System.Drawing.Font("Unispace", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dokumentationLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.dokumentationLabel.Location = new System.Drawing.Point(6, 281);
             this.dokumentationLabel.Name = "dokumentationLabel";
@@ -259,7 +258,7 @@ namespace DungeonWindows
             // truheIconLabel
             // 
             this.truheIconLabel.BackColor = System.Drawing.Color.Transparent;
-            this.truheIconLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.truheIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.truheIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.truheIconLabel.Location = new System.Drawing.Point(21, 316);
             this.truheIconLabel.Name = "truheIconLabel";
@@ -272,7 +271,7 @@ namespace DungeonWindows
             // falleIconLabel
             // 
             this.falleIconLabel.BackColor = System.Drawing.Color.Transparent;
-            this.falleIconLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.falleIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.falleIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.falleIconLabel.Location = new System.Drawing.Point(21, 351);
             this.falleIconLabel.Name = "falleIconLabel";
@@ -311,7 +310,7 @@ namespace DungeonWindows
             // bodenIconLabel
             // 
             this.bodenIconLabel.BackColor = System.Drawing.Color.Transparent;
-            this.bodenIconLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bodenIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bodenIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.bodenIconLabel.Location = new System.Drawing.Point(21, 389);
             this.bodenIconLabel.Name = "bodenIconLabel";
@@ -337,7 +336,7 @@ namespace DungeonWindows
             // wandIconLabel
             // 
             this.wandIconLabel.BackColor = System.Drawing.Color.Transparent;
-            this.wandIconLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wandIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wandIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.wandIconLabel.Location = new System.Drawing.Point(28, 427);
             this.wandIconLabel.Name = "wandIconLabel";
@@ -363,7 +362,7 @@ namespace DungeonWindows
             // endeIconLabel
             // 
             this.endeIconLabel.BackColor = System.Drawing.Color.Transparent;
-            this.endeIconLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.endeIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.endeIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.endeIconLabel.Location = new System.Drawing.Point(28, 465);
             this.endeIconLabel.Name = "endeIconLabel";
@@ -389,7 +388,7 @@ namespace DungeonWindows
             // startIconLabel
             // 
             this.startIconLabel.BackColor = System.Drawing.Color.Transparent;
-            this.startIconLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.startIconLabel.Location = new System.Drawing.Point(21, 503);
             this.startIconLabel.Name = "startIconLabel";
@@ -402,7 +401,7 @@ namespace DungeonWindows
             // helpBtn
             // 
             this.helpBtn.BackColor = System.Drawing.Color.White;
-            this.helpBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.helpBtn.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.helpBtn.Location = new System.Drawing.Point(103, 652);
             this.helpBtn.Name = "helpBtn";
             this.helpBtn.Size = new System.Drawing.Size(44, 23);
@@ -415,7 +414,7 @@ namespace DungeonWindows
             // beendenBtn2
             // 
             this.beendenBtn2.BackColor = System.Drawing.Color.White;
-            this.beendenBtn2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.beendenBtn2.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.beendenBtn2.Location = new System.Drawing.Point(24, 681);
             this.beendenBtn2.Name = "beendenBtn2";
             this.beendenBtn2.Size = new System.Drawing.Size(75, 23);
