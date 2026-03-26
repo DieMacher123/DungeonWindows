@@ -11,13 +11,12 @@ namespace DungeonWindows
 
         /*
          * TODO:
-         *  - paar Kommentare hinzufügen
+         *  - Kommentare
          *  - Ende vollenden
          *  - spieler größe anpassen
          *  - Fallen funktion
          *  - Truhen funktion
-         *  - Leben zeichnen
-         *  - flackern des dungeons entfernen
+         *  - Leben
          */
 
         private static Random random = new Random();
@@ -30,8 +29,6 @@ namespace DungeonWindows
         private static int truhenCounter = 0;
 
         int playerX, playerY;
-        private int playerHearts = 3;
-        private const int maxHearts = 3;
 
         char[,] dungeon = new char[0, 0];
 
@@ -175,7 +172,7 @@ namespace DungeonWindows
             int tileSize = BerechneTileSize(dungeonWidth, dungeonHeight);
             e.Graphics.DrawImage(dungeonBitmap, 0, 0);
             e.Graphics.DrawImage(playerImg, playerX * tileSize, playerY * tileSize, tileSize, tileSize);
-           
+
             stopwatch.Stop();
             timerLabel.Text = $"Zeit: {stopwatch.ElapsedMilliseconds} ms";
         }
@@ -200,7 +197,7 @@ namespace DungeonWindows
                             case 'T': img = chestImg; break;
                             case 'F': img = trapImg; break;
                         }
-                        if (img != null) 
+                        if (img != null)
                             g.DrawImage(img, x * tileSize, y * tileSize, tileSize, tileSize);
                     }
             }
@@ -319,7 +316,6 @@ namespace DungeonWindows
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            // Nur WASD erlauben
             if (e.KeyCode != Keys.W &&
                 e.KeyCode != Keys.A &&
                 e.KeyCode != Keys.S &&
@@ -328,61 +324,40 @@ namespace DungeonWindows
             if (moveCooldown.ElapsedMilliseconds < moveDelayMs) return;
             moveCooldown.Restart();
 
-            // Neue Position berechnen
-            int nx = playerX;
-            int ny = playerY;
+            int nx = playerX, ny = playerY;
 
             if (e.KeyCode == Keys.W) ny--;
             else if (e.KeyCode == Keys.S) ny++;
             else if (e.KeyCode == Keys.A) nx--;
             else if (e.KeyCode == Keys.D) nx++;
 
-            // Rand prüfen
-            if (nx <= 0 || ny <= 0 || nx >= dungeon.GetLength(1) - 1 || ny >= dungeon.GetLength(0) - 1) return;
+            if (nx <= 0 ||
+                ny <= 0 ||
+                nx >= dungeon.GetLength(1) - 1 ||
+                ny >= dungeon.GetLength(0) - 1) return;
 
-            // Wand prüfen
-            if (dungeon[ny, nx] == '#') return;
-
-            // Spieler verschieben
-            playerX = nx;
-            playerY = ny;
-
-            // === Sonderfelder prüfen ===
-            char field = dungeon[ny, nx];
-
-            if (field == 'T') // Truhe
+            if (dungeon[ny, nx] != '#')
             {
-                dungeon[ny, nx] = '.';
-                truhenCounter--;
-                truhenLabel.Text = $"Truhen: {truhenCounter}";
+                playerX = nx; playerY = ny;
 
-                if (playerHearts < maxHearts) playerHearts++; // Herz hinzufügen
-                dungeonPanel.Invalidate();
-            }
-            else if (field == 'F') // Falle
-            {
-                dungeon[ny, nx] = '.';
-                fallenCounter--;
-                fallenLabel.Text = $"Fallen: {fallenCounter}";
-
-                playerHearts--; // Herz abziehen
-
-                if (playerHearts <= 0)
+                if (dungeon[ny, nx] == 'T')
                 {
-                    MessageBox.Show("Game Over!");
-                    Application.Restart(); // Spiel neu starten
-                    return;
+                    dungeon[ny, nx] = '.'; truhenCounter--;
+                    truhenLabel.Text = $"Truhen: {truhenCounter}";
+                    RenderDungeonBitmap();
                 }
 
+                if (dungeon[ny, nx] == 'F')
+                {
+                    dungeon[ny, nx] = '.'; fallenCounter--;
+                    fallenLabel.Text = $"Fallen: {fallenCounter}";
+                    RenderDungeonBitmap();
+                }
+
+                if (dungeon[ny, nx] == 'E') MessageBox.Show("Gewonnen!");
+
                 dungeonPanel.Invalidate();
             }
-            else if (field == 'E') // Exit
-            {
-                MessageBox.Show("Gewonnen!");
-            }
-
-            // Panel aktualisieren (z.B. Spieler neu zeichnen + Herzen)
-            dungeonPanel.Invalidate();
         }
 
 
@@ -503,11 +478,6 @@ namespace DungeonWindows
         }
 
         private void wandIconLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void widthInput_TextChanged_1(object sender, EventArgs e)
         {
 
         }
