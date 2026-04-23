@@ -27,11 +27,14 @@ namespace DungeonWindows
         private static int dungeonWidth = 0;
         private static int fallenCounter = 0;
         private static int truhenCounter = 0;
-
+        
+        // Spielerposition im Dungeon
         int playerX, playerY;
-
+        
+        // 2D Dimensionaler Array
         char[,] dungeon = new char[0, 0];
-
+        
+        //Zeitmessung für das Gameplay
         private Stopwatch stopwatch = new Stopwatch();
         private Stopwatch moveCooldown = new Stopwatch();
         private int moveDelayMs = 60;
@@ -53,16 +56,16 @@ namespace DungeonWindows
             trapImg = Properties.Resources.trap;
             playerImg = Properties.Resources.player;
         }
-
+        //Startet das Spiel wenn man auf Start drückt
         private void startBtn_Click(object sender, EventArgs e)
         {
             mainScreen();
             hideButtons();
         }
-
+        //Beendet das Programm
         private void beendenBtn_Click(object sender, EventArgs e) => Environment.Exit(0);
         private void beendenBtn2_Click(object sender, EventArgs e) => beendenBtn_Click(sender, e);
-
+        //der main Screen wird hier aufgerufen
         private void mainScreen()
         {
             heightLabel.Visible = true;
@@ -88,7 +91,7 @@ namespace DungeonWindows
             beendenBtn.Visible = false;
             startBtn.Visible = false;
         }
-
+        //Schaltet die Legende ein und aus
         private void helpBtn_Click(object sender, EventArgs e)
         {
             dokumentationLabel.Visible = !dokumentationLabel.Visible;
@@ -124,6 +127,7 @@ namespace DungeonWindows
             dungeonWidth = width;
             objectChance = objChance;
 
+            //Zeitmessung für die Generierung starten
             timerLabel.Text = $"Zeit: 0 ms";
             stopwatch.Restart();
             moveCooldown.Restart();
@@ -152,7 +156,7 @@ namespace DungeonWindows
             fallenLabel.Visible = true;
             timerLabel.Visible = true;
         }
-
+        //expotiert den dungeon als txt datei
         private void exportBtn_Click(object sender, EventArgs e)
         {
             if (!dungeonFertig) return;
@@ -164,7 +168,7 @@ namespace DungeonWindows
                 File.WriteAllText(pfad, ArrayToText(dungeon));
             }
         }
-
+        //zeichnet den dungeon auf das Panel
         private void dungeonPanel_Paint(object sender, PaintEventArgs e)
         {
             if (dungeonBitmap == null) return;
@@ -187,7 +191,7 @@ namespace DungeonWindows
                 for (int y = 0; y < dungeon.GetLength(0); y++)
                     for (int x = 0; x < dungeon.GetLength(1); x++)
                     {
-                        Image img = null;
+                        Image img = null;           //wenn keine bilder in den dungeon geladen werden dann passiert das alles mit buchstaben generiert wird.
                         switch (dungeon[y, x])
                         {
                             case '#': img = wallImg; break;
@@ -209,7 +213,7 @@ namespace DungeonWindows
             if (width % 2 == 0) width--;
 
             char[,] dungeon = new char[height, width];
-
+            //Alles wird mit Wänden gefüllt 
             for (int y = 0; y < height; y++)
                 for (int x = 0; x < width; x++)
                     dungeon[y, x] = '#';
@@ -280,6 +284,7 @@ namespace DungeonWindows
             foreach (var d in dirs)
             {
                 int nx = x + d[1], ny = y + d[0];
+                //prüft ob das Ziel im Panel liegt
                 if (ny > 0 && ny < dungeon.GetLength(0) - 1 &&
                     nx > 0 && nx < dungeon.GetLength(1) - 1 &&
                     dungeon[ny, nx] == '#')
@@ -316,6 +321,7 @@ namespace DungeonWindows
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            //Es wird nur WASD zugelassen
             if (e.KeyCode != Keys.W &&
                 e.KeyCode != Keys.A &&
                 e.KeyCode != Keys.S &&
