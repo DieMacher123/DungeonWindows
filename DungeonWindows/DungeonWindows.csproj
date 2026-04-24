@@ -84,6 +84,8 @@
     <Content Include="Bilder\chest.png" />
     <Content Include="Bilder\exit.png" />
     <Content Include="Bilder\floor.png" />
+    <Content Include="Bilder\heart.png" />
+    <Content Include="Bilder\player.png" />
     <Content Include="Bilder\start.png" />
     <Content Include="Bilder\trap.png" />
     <Content Include="Bilder\wall.png" />

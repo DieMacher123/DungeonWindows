@@ -12,11 +12,6 @@ namespace DungeonWindows
         /*
          * TODO:
          *  - Kommentare
-         *  - Ende vollenden
-         *  - spieler größe anpassen
-         *  - Fallen funktion
-         *  - Truhen funktion
-         *  - Leben
          */
 
         private static Random random = new Random();
@@ -27,6 +22,7 @@ namespace DungeonWindows
         private static int dungeonWidth = 0;
         private static int fallenCounter = 0;
         private static int truhenCounter = 0;
+        private static int heartCounter = 3;
 
         int playerX, playerY;
 
@@ -60,8 +56,32 @@ namespace DungeonWindows
             hideButtons();
         }
 
-        private void beendenBtn_Click(object sender, EventArgs e) => Environment.Exit(0);
-        private void beendenBtn2_Click(object sender, EventArgs e) => beendenBtn_Click(sender, e);
+        private void beendenBtn_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void beendenBtn2_Click(object sender, EventArgs e)
+        {
+            beendenBtn_Click(sender, e);
+        }
+
+        private void gameOver()
+        {
+            if (heartCounter == 0)
+            {
+                MessageBox.Show("Verloren!");
+                Application.Restart();
+            }
+            else
+            {
+                if (MessageBox.Show("Spiel gewonnen! Neustarten?", "Gameover", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Application.Restart();
+                }
+            }
+
+        }
 
         private void mainScreen()
         {
@@ -118,8 +138,10 @@ namespace DungeonWindows
                 return;
             }
 
+            heartCounter = 3;
             truhenCounter = 0;
             fallenCounter = 0;
+
             dungeonHeight = height;
             dungeonWidth = width;
             objectChance = objChance;
@@ -151,6 +173,10 @@ namespace DungeonWindows
             truhenLabel.Visible = true;
             fallenLabel.Visible = true;
             timerLabel.Visible = true;
+            heartlbl.Visible = true;
+            heartIcon1.Visible = true;
+            heartIcon2.Visible = true;
+            heartIcon3.Visible = true;
         }
 
         private void exportBtn_Click(object sender, EventArgs e)
@@ -197,7 +223,7 @@ namespace DungeonWindows
                             case 'T': img = chestImg; break;
                             case 'F': img = trapImg; break;
                         }
-                        if (img != null) 
+                        if (img != null)
                             g.DrawImage(img, x * tileSize, y * tileSize, tileSize, tileSize);
                     }
             }
@@ -344,6 +370,10 @@ namespace DungeonWindows
                 {
                     dungeon[ny, nx] = '.'; truhenCounter--;
                     truhenLabel.Text = $"Truhen: {truhenCounter}";
+                    if (heartCounter < 3)
+                    {
+                        heartCounter++;
+                    }
                     RenderDungeonBitmap();
                 }
 
@@ -351,11 +381,42 @@ namespace DungeonWindows
                 {
                     dungeon[ny, nx] = '.'; fallenCounter--;
                     fallenLabel.Text = $"Fallen: {fallenCounter}";
+                    if (heartCounter > 0)
+                    {
+                        heartCounter--;
+                    }
+
+
                     RenderDungeonBitmap();
                 }
 
-                if (dungeon[ny, nx] == 'E') MessageBox.Show("Gewonnen!");
+                if (dungeon[ny, nx] == 'E')
+                {
+                    gameOver();
+                }
 
+                switch (heartCounter)
+                {
+                    case 0:
+                        gameOver();
+                        break;
+                    case 1:
+                        heartIcon1.Visible = true;
+                        heartIcon2.Visible = false;
+                        heartIcon3.Visible = false;
+                        break;
+                    case 2:
+                        heartIcon1.Visible = true;
+                        heartIcon2.Visible = true;
+                        heartIcon3.Visible = false;
+                        break;
+                    case 3:
+                        heartIcon1.Visible = true;
+                        heartIcon2.Visible = true;
+                        heartIcon3.Visible = true;
+                        break;
+
+                }
                 dungeonPanel.Invalidate();
             }
         }

@@ -46,6 +46,10 @@ namespace DungeonWindows
             this.startIconLabel = new System.Windows.Forms.Label();
             this.helpBtn = new System.Windows.Forms.Button();
             this.beendenBtn2 = new System.Windows.Forms.Button();
+            this.heartlbl = new System.Windows.Forms.Label();
+            this.heartIcon1 = new System.Windows.Forms.PictureBox();
+            this.heartIcon2 = new System.Windows.Forms.PictureBox();
+            this.heartIcon3 = new System.Windows.Forms.PictureBox();
             this.dungeonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.truhenIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fallenIcon)).BeginInit();
@@ -53,6 +57,9 @@ namespace DungeonWindows
             ((System.ComponentModel.ISupportInitialize)(this.wandIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.endeIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.startIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heartIcon1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heartIcon2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heartIcon3)).BeginInit();
             this.SuspendLayout();
             // 
             // startBtn
@@ -234,7 +241,7 @@ namespace DungeonWindows
             this.dokumentationLabel.BackColor = System.Drawing.Color.Transparent;
             this.dokumentationLabel.Font = new System.Drawing.Font("Unispace", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dokumentationLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.dokumentationLabel.Location = new System.Drawing.Point(6, 281);
+            this.dokumentationLabel.Location = new System.Drawing.Point(6, 251);
             this.dokumentationLabel.Name = "dokumentationLabel";
             this.dokumentationLabel.Size = new System.Drawing.Size(165, 23);
             this.dokumentationLabel.TabIndex = 15;
@@ -247,7 +254,7 @@ namespace DungeonWindows
             this.truhenIcon.BackgroundImage = global::DungeonWindows.Properties.Resources.chest;
             this.truhenIcon.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
             this.truhenIcon.InitialImage = global::DungeonWindows.Properties.Resources.chest;
-            this.truhenIcon.Location = new System.Drawing.Point(89, 307);
+            this.truhenIcon.Location = new System.Drawing.Point(89, 277);
             this.truhenIcon.Name = "truhenIcon";
             this.truhenIcon.Size = new System.Drawing.Size(32, 32);
             this.truhenIcon.TabIndex = 16;
@@ -260,7 +267,7 @@ namespace DungeonWindows
             this.truheIconLabel.BackColor = System.Drawing.Color.Transparent;
             this.truheIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.truheIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.truheIconLabel.Location = new System.Drawing.Point(21, 316);
+            this.truheIconLabel.Location = new System.Drawing.Point(21, 286);
             this.truheIconLabel.Name = "truheIconLabel";
             this.truheIconLabel.Size = new System.Drawing.Size(69, 23);
             this.truheIconLabel.TabIndex = 17;
@@ -273,7 +280,7 @@ namespace DungeonWindows
             this.falleIconLabel.BackColor = System.Drawing.Color.Transparent;
             this.falleIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.falleIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.falleIconLabel.Location = new System.Drawing.Point(21, 351);
+            this.falleIconLabel.Location = new System.Drawing.Point(21, 321);
             this.falleIconLabel.Name = "falleIconLabel";
             this.falleIconLabel.Size = new System.Drawing.Size(69, 23);
             this.falleIconLabel.TabIndex = 18;
@@ -286,7 +293,7 @@ namespace DungeonWindows
             this.fallenIcon.BackgroundImage = global::DungeonWindows.Properties.Resources.trap;
             this.fallenIcon.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
             this.fallenIcon.InitialImage = global::DungeonWindows.Properties.Resources.chest;
-            this.fallenIcon.Location = new System.Drawing.Point(89, 342);
+            this.fallenIcon.Location = new System.Drawing.Point(89, 312);
             this.fallenIcon.Name = "fallenIcon";
             this.fallenIcon.Size = new System.Drawing.Size(32, 32);
             this.fallenIcon.TabIndex = 19;
@@ -299,7 +306,7 @@ namespace DungeonWindows
             this.bodenIcon.BackgroundImage = global::DungeonWindows.Properties.Resources.floor;
             this.bodenIcon.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
             this.bodenIcon.InitialImage = global::DungeonWindows.Properties.Resources.chest;
-            this.bodenIcon.Location = new System.Drawing.Point(89, 380);
+            this.bodenIcon.Location = new System.Drawing.Point(89, 350);
             this.bodenIcon.Name = "bodenIcon";
             this.bodenIcon.Size = new System.Drawing.Size(32, 32);
             this.bodenIcon.TabIndex = 20;
@@ -312,7 +319,7 @@ namespace DungeonWindows
             this.bodenIconLabel.BackColor = System.Drawing.Color.Transparent;
             this.bodenIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bodenIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.bodenIconLabel.Location = new System.Drawing.Point(21, 389);
+            this.bodenIconLabel.Location = new System.Drawing.Point(21, 359);
             this.bodenIconLabel.Name = "bodenIconLabel";
             this.bodenIconLabel.Size = new System.Drawing.Size(69, 23);
             this.bodenIconLabel.TabIndex = 21;
@@ -325,7 +332,7 @@ namespace DungeonWindows
             this.wandIcon.BackgroundImage = global::DungeonWindows.Properties.Resources.wall;
             this.wandIcon.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
             this.wandIcon.InitialImage = global::DungeonWindows.Properties.Resources.chest;
-            this.wandIcon.Location = new System.Drawing.Point(89, 418);
+            this.wandIcon.Location = new System.Drawing.Point(89, 388);
             this.wandIcon.Name = "wandIcon";
             this.wandIcon.Size = new System.Drawing.Size(32, 32);
             this.wandIcon.TabIndex = 22;
@@ -338,7 +345,7 @@ namespace DungeonWindows
             this.wandIconLabel.BackColor = System.Drawing.Color.Transparent;
             this.wandIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wandIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.wandIconLabel.Location = new System.Drawing.Point(28, 427);
+            this.wandIconLabel.Location = new System.Drawing.Point(28, 397);
             this.wandIconLabel.Name = "wandIconLabel";
             this.wandIconLabel.Size = new System.Drawing.Size(62, 23);
             this.wandIconLabel.TabIndex = 23;
@@ -351,7 +358,7 @@ namespace DungeonWindows
             this.endeIcon.BackgroundImage = global::DungeonWindows.Properties.Resources.exit;
             this.endeIcon.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
             this.endeIcon.InitialImage = global::DungeonWindows.Properties.Resources.chest;
-            this.endeIcon.Location = new System.Drawing.Point(89, 456);
+            this.endeIcon.Location = new System.Drawing.Point(89, 426);
             this.endeIcon.Name = "endeIcon";
             this.endeIcon.Size = new System.Drawing.Size(32, 32);
             this.endeIcon.TabIndex = 24;
@@ -364,7 +371,7 @@ namespace DungeonWindows
             this.endeIconLabel.BackColor = System.Drawing.Color.Transparent;
             this.endeIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.endeIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.endeIconLabel.Location = new System.Drawing.Point(28, 465);
+            this.endeIconLabel.Location = new System.Drawing.Point(28, 435);
             this.endeIconLabel.Name = "endeIconLabel";
             this.endeIconLabel.Size = new System.Drawing.Size(62, 23);
             this.endeIconLabel.TabIndex = 25;
@@ -377,7 +384,7 @@ namespace DungeonWindows
             this.startIcon.BackgroundImage = global::DungeonWindows.Properties.Resources.start;
             this.startIcon.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
             this.startIcon.InitialImage = global::DungeonWindows.Properties.Resources.chest;
-            this.startIcon.Location = new System.Drawing.Point(89, 494);
+            this.startIcon.Location = new System.Drawing.Point(89, 464);
             this.startIcon.Name = "startIcon";
             this.startIcon.Size = new System.Drawing.Size(32, 32);
             this.startIcon.TabIndex = 26;
@@ -390,7 +397,7 @@ namespace DungeonWindows
             this.startIconLabel.BackColor = System.Drawing.Color.Transparent;
             this.startIconLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startIconLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.startIconLabel.Location = new System.Drawing.Point(21, 503);
+            this.startIconLabel.Location = new System.Drawing.Point(21, 473);
             this.startIconLabel.Name = "startIconLabel";
             this.startIconLabel.Size = new System.Drawing.Size(69, 23);
             this.startIconLabel.TabIndex = 27;
@@ -424,10 +431,62 @@ namespace DungeonWindows
             this.beendenBtn2.Visible = false;
             this.beendenBtn2.Click += new System.EventHandler(this.beendenBtn2_Click);
             // 
+            // heartlbl
+            // 
+            this.heartlbl.BackColor = System.Drawing.Color.Transparent;
+            this.heartlbl.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.heartlbl.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.heartlbl.Location = new System.Drawing.Point(21, 531);
+            this.heartlbl.Name = "heartlbl";
+            this.heartlbl.Size = new System.Drawing.Size(57, 23);
+            this.heartlbl.TabIndex = 30;
+            this.heartlbl.Text = "Leben:";
+            this.heartlbl.Visible = false;
+            // 
+            // heartIcon1
+            // 
+            this.heartIcon1.BackgroundImage = global::DungeonWindows.Properties.Resources.heart;
+            this.heartIcon1.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
+            this.heartIcon1.InitialImage = global::DungeonWindows.Properties.Resources.chest;
+            this.heartIcon1.Location = new System.Drawing.Point(85, 522);
+            this.heartIcon1.Name = "heartIcon1";
+            this.heartIcon1.Size = new System.Drawing.Size(32, 32);
+            this.heartIcon1.TabIndex = 31;
+            this.heartIcon1.TabStop = false;
+            this.heartIcon1.Visible = false;
+            // 
+            // heartIcon2
+            // 
+            this.heartIcon2.BackgroundImage = global::DungeonWindows.Properties.Resources.heart;
+            this.heartIcon2.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
+            this.heartIcon2.InitialImage = global::DungeonWindows.Properties.Resources.chest;
+            this.heartIcon2.Location = new System.Drawing.Point(123, 522);
+            this.heartIcon2.Name = "heartIcon2";
+            this.heartIcon2.Size = new System.Drawing.Size(32, 32);
+            this.heartIcon2.TabIndex = 32;
+            this.heartIcon2.TabStop = false;
+            this.heartIcon2.Visible = false;
+            // 
+            // heartIcon3
+            // 
+            this.heartIcon3.BackgroundImage = global::DungeonWindows.Properties.Resources.heart;
+            this.heartIcon3.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
+            this.heartIcon3.InitialImage = global::DungeonWindows.Properties.Resources.chest;
+            this.heartIcon3.Location = new System.Drawing.Point(161, 522);
+            this.heartIcon3.Name = "heartIcon3";
+            this.heartIcon3.Size = new System.Drawing.Size(32, 32);
+            this.heartIcon3.TabIndex = 33;
+            this.heartIcon3.TabStop = false;
+            this.heartIcon3.Visible = false;
+            // 
             // Form1
             // 
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(948, 724);
+            this.Controls.Add(this.heartIcon3);
+            this.Controls.Add(this.heartIcon2);
+            this.Controls.Add(this.heartIcon1);
+            this.Controls.Add(this.heartlbl);
             this.Controls.Add(this.beendenBtn2);
             this.Controls.Add(this.helpBtn);
             this.Controls.Add(this.startIconLabel);
@@ -466,6 +525,9 @@ namespace DungeonWindows
             ((System.ComponentModel.ISupportInitialize)(this.wandIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.endeIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.startIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heartIcon1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heartIcon2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heartIcon3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -501,5 +563,9 @@ namespace DungeonWindows
         private System.Windows.Forms.Label startIconLabel;
         private System.Windows.Forms.Button helpBtn;
         private System.Windows.Forms.Button beendenBtn2;
+        private System.Windows.Forms.Label heartlbl;
+        private System.Windows.Forms.PictureBox heartIcon1;
+        private System.Windows.Forms.PictureBox heartIcon2;
+        private System.Windows.Forms.PictureBox heartIcon3;
     }
 }
