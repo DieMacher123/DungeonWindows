@@ -1,6 +1,6 @@
 namespace DungeonWindows
 {
-    partial class Form1
+    partial class Dungeon
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -30,7 +30,6 @@ namespace DungeonWindows
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.dungeonPanel = new System.Windows.Forms.Panel();
             this.statistikenLabel = new System.Windows.Forms.Label();
-            this.timerLabel = new System.Windows.Forms.Label();
             this.dokumentationLabel = new System.Windows.Forms.Label();
             this.truhenIcon = new System.Windows.Forms.PictureBox();
             this.truheIconLabel = new System.Windows.Forms.Label();
@@ -66,11 +65,11 @@ namespace DungeonWindows
             // 
             this.startBtn.BackColor = System.Drawing.Color.White;
             this.startBtn.Font = new System.Drawing.Font("Unispace", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startBtn.Location = new System.Drawing.Point(193, 223);
+            this.startBtn.Location = new System.Drawing.Point(181, 223);
             this.startBtn.Name = "startBtn";
             this.startBtn.Size = new System.Drawing.Size(116, 39);
             this.startBtn.TabIndex = 13;
-            this.startBtn.Text = "Start";
+            this.startBtn.Text = "Starten";
             this.startBtn.UseVisualStyleBackColor = false;
             this.startBtn.Click += new System.EventHandler(this.startBtn_Click);
             // 
@@ -78,7 +77,7 @@ namespace DungeonWindows
             // 
             this.beendenBtn.BackColor = System.Drawing.Color.White;
             this.beendenBtn.Font = new System.Drawing.Font("Unispace", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.beendenBtn.Location = new System.Drawing.Point(193, 283);
+            this.beendenBtn.Location = new System.Drawing.Point(181, 283);
             this.beendenBtn.Name = "beendenBtn";
             this.beendenBtn.Size = new System.Drawing.Size(116, 38);
             this.beendenBtn.TabIndex = 12;
@@ -223,19 +222,6 @@ namespace DungeonWindows
             this.statistikenLabel.Visible = false;
             this.statistikenLabel.Click += new System.EventHandler(this.statistikenLabel_Click);
             // 
-            // timerLabel
-            // 
-            this.timerLabel.BackColor = System.Drawing.Color.Transparent;
-            this.timerLabel.Font = new System.Drawing.Font("Unispace", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timerLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.timerLabel.Location = new System.Drawing.Point(27, 216);
-            this.timerLabel.Name = "timerLabel";
-            this.timerLabel.Size = new System.Drawing.Size(100, 23);
-            this.timerLabel.TabIndex = 14;
-            this.timerLabel.Text = "Zeit:";
-            this.timerLabel.Visible = false;
-            this.timerLabel.Click += new System.EventHandler(this.timerLabel_Click);
-            // 
             // dokumentationLabel
             // 
             this.dokumentationLabel.BackColor = System.Drawing.Color.Transparent;
@@ -291,8 +277,8 @@ namespace DungeonWindows
             // fallenIcon
             // 
             this.fallenIcon.BackgroundImage = global::DungeonWindows.Properties.Resources.trap;
-            this.fallenIcon.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
-            this.fallenIcon.InitialImage = global::DungeonWindows.Properties.Resources.chest;
+            this.fallenIcon.ErrorImage = null;
+            this.fallenIcon.InitialImage = null;
             this.fallenIcon.Location = new System.Drawing.Point(89, 312);
             this.fallenIcon.Name = "fallenIcon";
             this.fallenIcon.Size = new System.Drawing.Size(32, 32);
@@ -304,8 +290,8 @@ namespace DungeonWindows
             // bodenIcon
             // 
             this.bodenIcon.BackgroundImage = global::DungeonWindows.Properties.Resources.floor;
-            this.bodenIcon.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
-            this.bodenIcon.InitialImage = global::DungeonWindows.Properties.Resources.chest;
+            this.bodenIcon.ErrorImage = null;
+            this.bodenIcon.InitialImage = null;
             this.bodenIcon.Location = new System.Drawing.Point(89, 350);
             this.bodenIcon.Name = "bodenIcon";
             this.bodenIcon.Size = new System.Drawing.Size(32, 32);
@@ -330,8 +316,8 @@ namespace DungeonWindows
             // wandIcon
             // 
             this.wandIcon.BackgroundImage = global::DungeonWindows.Properties.Resources.wall;
-            this.wandIcon.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
-            this.wandIcon.InitialImage = global::DungeonWindows.Properties.Resources.chest;
+            this.wandIcon.ErrorImage = null;
+            this.wandIcon.InitialImage = null;
             this.wandIcon.Location = new System.Drawing.Point(89, 388);
             this.wandIcon.Name = "wandIcon";
             this.wandIcon.Size = new System.Drawing.Size(32, 32);
@@ -356,8 +342,8 @@ namespace DungeonWindows
             // endeIcon
             // 
             this.endeIcon.BackgroundImage = global::DungeonWindows.Properties.Resources.exit;
-            this.endeIcon.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
-            this.endeIcon.InitialImage = global::DungeonWindows.Properties.Resources.chest;
+            this.endeIcon.ErrorImage = null;
+            this.endeIcon.InitialImage = null;
             this.endeIcon.Location = new System.Drawing.Point(89, 426);
             this.endeIcon.Name = "endeIcon";
             this.endeIcon.Size = new System.Drawing.Size(32, 32);
@@ -382,8 +368,8 @@ namespace DungeonWindows
             // startIcon
             // 
             this.startIcon.BackgroundImage = global::DungeonWindows.Properties.Resources.start;
-            this.startIcon.ErrorImage = global::DungeonWindows.Properties.Resources.chest;
-            this.startIcon.InitialImage = global::DungeonWindows.Properties.Resources.chest;
+            this.startIcon.ErrorImage = null;
+            this.startIcon.InitialImage = null;
             this.startIcon.Location = new System.Drawing.Point(89, 464);
             this.startIcon.Name = "startIcon";
             this.startIcon.Size = new System.Drawing.Size(32, 32);
@@ -502,7 +488,6 @@ namespace DungeonWindows
             this.Controls.Add(this.truheIconLabel);
             this.Controls.Add(this.truhenIcon);
             this.Controls.Add(this.dokumentationLabel);
-            this.Controls.Add(this.timerLabel);
             this.Controls.Add(this.statistikenLabel);
             this.Controls.Add(this.objectInput);
             this.Controls.Add(this.widthInput);
@@ -515,9 +500,15 @@ namespace DungeonWindows
             this.Controls.Add(this.heightLabel);
             this.Controls.Add(this.dungeonPanel);
             this.Controls.Add(this.objectLabel);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(964, 763);
+            this.MinimumSize = new System.Drawing.Size(964, 763);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dungeon Generator";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.Dungeon_Load);
             this.dungeonPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.truhenIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fallenIcon)).EndInit();
@@ -547,7 +538,6 @@ namespace DungeonWindows
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.Panel dungeonPanel;
         private System.Windows.Forms.Label statistikenLabel;
-        private System.Windows.Forms.Label timerLabel;
         private System.Windows.Forms.Label dokumentationLabel;
         private System.Windows.Forms.PictureBox truhenIcon;
         private System.Windows.Forms.Label truheIconLabel;
