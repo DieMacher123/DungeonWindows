@@ -8,20 +8,20 @@ namespace DungeonWindows
 {
     public partial class Dungeon : Form
     {
-        // Zufallsgenerator für Dungeon-Generierung
+        // Zufallsgenerator fÃ¼r Dungeon-Generierung
         private static Random random = new Random();
 
         // Spielstatus: Dungeon fertig generiert?
         private static bool dungeonFertig = false;
 
-        // Wahrscheinlichkeit für Objekte (Truhen/Fallen)
+        // Wahrscheinlichkeit fÃ¼r Objekte (Truhen/Fallen)
         private static int objectChance = 5;
 
-        // Dungeon-Größe
+        // Dungeon-GrÃ¶ÃŸe
         private static int dungeonHeight = 0;
         private static int dungeonWidth = 0;
 
-        // Zähler für Spielobjekte
+        // ZÃ¤hler fÃ¼r Spielobjekte
         private static int fallenCounter = 0;
         private static int truhenCounter = 0;
 
@@ -34,14 +34,14 @@ namespace DungeonWindows
         // 2D-Dungeon-Map (Raster)
         char[,] dungeon = new char[0, 0];
 
-        // Cooldown für Bewegung (verhindert zu schnelles Laufen)
+        // Cooldown fÃ¼r Bewegung (verhindert zu schnelles Laufen)
         private Stopwatch moveCooldown = new Stopwatch();
         private int moveDelayMs = 100;
 
         // fertiges Bild des Dungeons (wird gerendert und nur noch angezeigt)
         private Bitmap dungeonBitmap;
 
-        // Grafiken für Tiles und Spieler
+        // Grafiken fÃ¼r Tiles und Spieler
         Image wallImg, floorImg, startImg, exitImg, chestImg, trapImg, playerImg;
 
         public Dungeon()
@@ -58,7 +58,7 @@ namespace DungeonWindows
             playerImg = Properties.Resources.player;
         }
 
-        // Startmenü öffnen
+        // StartmenÃ¼ Ã¶ffnen
         private void startBtn_Click(object sender, EventArgs e)
         {
             mainScreen();
@@ -95,7 +95,7 @@ namespace DungeonWindows
             }
         }
 
-        // UI vom Hauptmenü anzeigen
+        // UI vom HauptmenÃ¼ anzeigen
         private void mainScreen()
         {
             heightLabel.Visible = true;
@@ -137,7 +137,7 @@ namespace DungeonWindows
         // Dungeon erzeugen und Spiel starten
         private void generateBtn_Click(object sender, EventArgs e)
         {
-            // Eingabe prüfen
+            // Eingabe prÃ¼fen
             if (!int.TryParse(heightInput.Text, out int height) ||
                 !int.TryParse(widthInput.Text, out int width) ||
                 !int.TryParse(objectInput.Text, out int objChance) ||
@@ -246,10 +246,10 @@ namespace DungeonWindows
             }
         }
 
-        // Dungeon generieren (Maze + Räume + Items)
+        // Dungeon generieren (Maze + RÃ¤ume + Items)
         public static char[,] GenerateDungeon(int height, int width)
         {
-            // ungerade Größe erzwingen
+            // ungerade GrÃ¶ÃŸe erzwingen
             if (height % 2 == 0) height--;
             if (width % 2 == 0) width--;
 
@@ -263,7 +263,7 @@ namespace DungeonWindows
             // Maze erzeugen
             LabyrinthWege(dungeon, 1, 1);
 
-            // zufällige Räume hinzufügen
+            // zufÃ¤llige RÃ¤ume hinzufÃ¼gen
             int raumAnzahl = Math.Min(50, (width * height) / 50) + random.Next(-2, 3);
             raumAnzahl = Math.Max(2, raumAnzahl);
 
@@ -361,14 +361,14 @@ namespace DungeonWindows
                 for (int x = 0; x < dungeon.GetLength(1); x++)
                 {
                     txt += dungeon[y, x];
-                    txt += "\n";
                 }
+                 txt += "\n";
             }
 
             return txt;
         }
 
-        // Img Größe berechnen (Zoom abhängig von Größe)
+        // Img GrÃ¶ÃŸe berechnen (Zoom abhÃ¤ngig von GrÃ¶ÃŸe)
         private int BerechneImgSize(int w, int h)
         {
             int maxSize = Math.Max(w, h);
