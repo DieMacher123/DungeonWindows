@@ -56,6 +56,13 @@ namespace DungeonWindows
             chestImg = Properties.Resources.chest;
             trapImg = Properties.Resources.trap;
             playerImg = Properties.Resources.player;
+
+
+            // Fix für das Flackern
+            typeof(Panel).GetProperty("DoubleBuffered",
+            System.Reflection.BindingFlags.Instance |
+            System.Reflection.BindingFlags.NonPublic)
+            ?.SetValue(dungeonPanel, true, null);
         }
 
         // Startmenü öffnen
