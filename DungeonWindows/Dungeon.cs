@@ -472,66 +472,35 @@ namespace DungeonWindows
         }
 
         private void Dungeon_Load(object sender, EventArgs e) { }
-
         private void heightLabel_Click(object sender, EventArgs e) { }
-
         private void widthLabel_Click(object sender, EventArgs e) { }
-
         private void heightInput_TextChanged(object sender, EventArgs e) { }
-
         private void widthInput_TextChanged(object sender, EventArgs e) { }
-
         private void objectLabel_click(object sender, EventArgs e) { }
-
         private void objectInput_TextChanged(object sender, EventArgs e) { }
-
         private void dungeonAusgabe_TextChanged(object sender, EventArgs e) { }
-
         private void dungeonName_TextChanged(object sender, EventArgs e) { }
-
         private void dungeonNameLabel_Click(object sender, EventArgs e) { }
-
         private void pathBox_TextChanged(object sender, EventArgs e) { }
-
         private void pathLabel_Click(object sender, EventArgs e) { }
-
         private void truhenLabel_Click(object sender, EventArgs e) { }
-
         private void fallenLabel_Click(object sender, EventArgs e) { }
-
         private void statistikenLabel_Click(object sender, EventArgs e) { }
-
         private void timerLabel_Click(object sender, EventArgs e) { }
-
         private void fallenLabel_Click_1(object sender, EventArgs e) { }
-
         private void truhenLabel_Click_1(object sender, EventArgs e) { }
-
         private void truheIconLabel_Click(object sender, EventArgs e) { }
-
         private void truhenIcon_Click(object sender, EventArgs e) { }
-
         private void falleIconLabel_Click(object sender, EventArgs e) { }
-
         private void bodenIconLabel_Click(object sender, EventArgs e) { }
-
         private void wandIcon_Click(object sender, EventArgs e) { }
-
         private void wandIconLabel_Click(object sender, EventArgs e) { }
-
         private void endeIconLabel_Click(object sender, EventArgs e) { }
-
         private void startIconLabel_Click(object sender, EventArgs e) { }
-
         private void fallenIcon_Click(object sender, EventArgs e) { }
-
         private void startIcon_Click(object sender, EventArgs e) { }
-
         private void bodenIcon_Click(object sender, EventArgs e) { }
-
         private void endeIcon_Click(object sender, EventArgs e) { }
-
         private void dokumentationLabel_Click(object sender, EventArgs e) { }
-
     }
 }
